@@ -19,7 +19,10 @@ hbs.registerPartials(__dirname + '/views/Partials', function (err) {});
 app.use(
 	session({
 		secret: 'Keyboard Cat',
-		cookie: { secure: false, maxAge: 60000 },
+		cookie: {
+			secure: false,
+			maxAge: 60000,
+		},
 		resave: false,
 		saveUninitialized: true,
 	})
@@ -37,15 +40,15 @@ con.connect((err) => {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+	bodyParser.urlencoded({
+		extended: true,
+	})
+);
 
 // Routing start
 app.use('/', require('./route/index'));
 app.use('/users', require('./route/users'));
-app.get('/404.html', (req, res) => {
-	res.render('404', { title: 'Ooopsss...Page Not Found', name: '404' });
-});
-
 
 app.get('*', function (req, res) {
 	res.status(404).redirect('/404.html');
