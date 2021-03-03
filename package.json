@@ -5,7 +5,8 @@
 	"main": "server.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "nodemon server.js -e js, hbs, scss,css"
+		"start": "node server.js",
+		"serve": "nodemon server.js -e js, hbs, scss,css"
 	},
 	"author": "Sukanta Majhi",
 	"license": "ISC",
