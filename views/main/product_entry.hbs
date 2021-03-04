@@ -1,0 +1,40 @@
+{{>header}}
+<h2>Sell your product</h2>
+<form name="product_sell" action='/product/sell' method='post' onsubmit="return check()">
+    <div class='pname'>
+        <label for='product__name'>Product Name</label>
+        <input type='text' class="product__name" name="product__name" id="product__name" required />
+    </div>
+
+    <div class='imgsrc'>
+        <label for='imgsrc'>Image Source</label>
+        <input type='text' class="imgsrc" name="imgsrc" id="imgsrc" required />
+    </div>
+
+    <div class='price'>
+        <label for='price'>Price</label>
+        <input type='text' class="price" name="price" id="price" required />
+        <div id='price__error'></div>
+    </div>
+
+    <div class='red_link'>
+        <label for='redirect__link'>Redirect Link</label>
+        <input type='url' class="redirect__link" name="redirect__link" id="redirect__link" required />
+    </div>
+
+    <button type='submit'>Submit</button>
+
+</form>
+
+<script>
+    function check()
+    {
+        let x = document.getElementById( "price" ).value;
+        if ( isNaN( x ) ) {
+            return false;
+            text = "Price should be a number";
+        }
+        document.getElementById( "error" ).innerHTML = text;
+    }
+</script>
+{{>footer}}

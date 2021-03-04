@@ -1,0 +1,23 @@
+@import "_variable";
+h2 {
+    font-family: $heading;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    div {
+        margin: 5px 0;
+        label {
+            font-family: $body;
+            font-size: 18px;
+        }
+    }
+    input {
+        padding:8px 15px;
+    }
+    button {
+        padding: 10px 15px;
+    }
+}

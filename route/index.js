@@ -19,14 +19,16 @@ router.get('/about', (req, res) => {
 router.get('/contact', (req, res) => {
 	res.render('contact', { title: 'Contact Us', msg: 'Contact us' });
 });
-router.get('/login', (req, res) => {
-	res.render('login', { title: 'Account', name: 'account' });
-});
 router.get('/terms-and-conditions', (req, res) => {
 	res.render('toc', { title: 'Terms and Conditions' });
+});
+router.get('/dashboard', (req, res) => {
+	res.render('dashboard', { title: 'Dashboard', msg: 'dashboard' });
 });
 router.get('/404.html', (req, res) => {
 	res.render('404', { title: 'Ooopsss...Page Not Found', name: '404' });
 });
+
+
 
 module.exports = router;
