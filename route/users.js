@@ -4,7 +4,10 @@ const passport = require('passport');
 localStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const { forwardAuthenticated } = require('../config/auth');
+<<<<<<< HEAD
 const con = require('../config/db');
+=======
+>>>>>>> 0657e0911d16ee9bc36bfc9ac92237a06d53ace2
 const router = express.Router();
 
 app = express();

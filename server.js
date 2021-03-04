@@ -38,7 +38,10 @@ app.use(
 // Routing start
 app.use('/', require('./route/index'));
 app.use('/users', require('./route/users'));
+<<<<<<< HEAD
 app.use('/product', require('./route/product'));
+=======
+>>>>>>> 0657e0911d16ee9bc36bfc9ac92237a06d53ace2
 
 app.get('*', function (req, res) {
 	res.status(404).redirect('/404.html');
