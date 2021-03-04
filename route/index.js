@@ -29,6 +29,4 @@ router.get('/404.html', (req, res) => {
 	res.render('404', { title: 'Ooopsss...Page Not Found', name: '404' });
 });
 
-
-
 module.exports = router;

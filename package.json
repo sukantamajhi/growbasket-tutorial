@@ -11,10 +11,6 @@
 	"author": "Sukanta Majhi",
 	"license": "ISC",
 	"dependencies": {
-<<<<<<< HEAD
-		"alert": "^5.0.10",
-=======
->>>>>>> 0657e0911d16ee9bc36bfc9ac92237a06d53ace2
 		"bcrypt": "^5.0.0",
 		"body-parser": "^1.19.0",
 		"connect-redis": "^5.0.0",
