@@ -1,16 +1,17 @@
 {{>header}}
 <h2>Sell your product</h2>
 <form name="product_sell" action='/product/sell' method='post' onsubmit="return check()">
-    <div class='pname'>
-        <label for='product__name'>Product Name</label>
-        <input type='text' class="product__name" name="product__name" id="product__name" required />
-    </div>
 
     <div class='imgsrc'>
         <label for='imgsrc'>Image Source</label>
         <input type='text' class="imgsrc" name="imgsrc" id="imgsrc" required />
     </div>
 
+    <div class='pname'>
+        <label for='product__name'>Product Name</label>
+        <input type='text' class="product__name" name="product__name" id="product__name" required />
+    </div>
+    
     <div class='price'>
         <label for='price'>Price</label>
         <input type='text' class="price" name="price" id="price" required />
