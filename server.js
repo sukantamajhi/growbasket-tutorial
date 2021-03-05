@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const hbs = require('hbs');
 const mySql = require('mysql');
@@ -38,7 +39,7 @@ app.use(
 // Routing start
 app.use('/', require('./route/index'));
 app.use('/users', require('./route/users'));
-app.use( '/product', require( './route/product' ) );
+app.use('/product', require('./route/product'));
 
 app.get('*', function (req, res) {
 	res.status(404).redirect('/404.html');

@@ -14,4 +14,6 @@ connection.connect((err) => {
 	// console.log('Database connected');
 });
 
+const pool = mySql.createPool(connection);
+
 module.exports = connection;

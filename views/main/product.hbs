@@ -1,7 +1,12 @@
 {{> header}}
+{{# each result}}
 <div class='cards'>
     <div class='card'>
-        <img src='{{imgsrc}}' alt='' />
+        <img src='{{product_link}}' alt='' />
+        <h2>{{product_name}}</h2>
+        <p>{{price}}</p>
+        <button><a href='{{redirect_link}}' target='_blank'>Watch now</a></button>
     </div>
 </div>
+{{/each}}
 {{> footer}}
