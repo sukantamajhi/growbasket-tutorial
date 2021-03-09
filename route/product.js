@@ -1,7 +1,7 @@
 const express = require('express');
 const jsAlert = require('js-alert');
 const mySql = require('mysql');
-const con = require( '../config/db' );
+const con = require('../config/db');
 const router = express.Router();
 
 app = express();
@@ -39,7 +39,7 @@ router.post('/sell', (req, res) => {
 		});
 	}
 
-	res.redirect('/product/sell');
+	res.redirect('/product');
 });
 
 module.exports = router;

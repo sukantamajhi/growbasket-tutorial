@@ -5,7 +5,6 @@ const hbs = require('hbs');
 const mySql = require('mysql');
 const con = require('./config/db');
 const session = require('express-session');
-
 const port = process.env.PORT || 4000;
 
 const app = express();

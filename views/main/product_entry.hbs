@@ -1,5 +1,8 @@
 {{>header}}
 <h2>Sell your product</h2>
+<div class='error'>
+    {{message}}
+</div>
 <form name="product_sell" action='/product/sell' method='post' onsubmit="return check()">
 
     <div class='imgsrc'>
