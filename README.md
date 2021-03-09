@@ -9,7 +9,7 @@ $ npm install
 ```sh
 $ npm start
 # Or run with Nodemon
-$ npm run dev
+$ npm run serve
 
 # Visit http://localhost:5000
 ```
