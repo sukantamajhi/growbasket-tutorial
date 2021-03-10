@@ -5,6 +5,7 @@ const hbs = require('hbs');
 const mySql = require('mysql');
 const con = require('./config/db');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const port = process.env.PORT || 4000;
 
 const app = express();
@@ -27,7 +28,7 @@ app.use(
 		saveUninitialized: true,
 	})
 );
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
 	bodyParser.urlencoded({
