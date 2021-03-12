@@ -1,5 +1,4 @@
 const express = require('express');
-const jsAlert = require('js-alert');
 const mySql = require('mysql');
 const con = require('../config/db');
 const router = express.Router();

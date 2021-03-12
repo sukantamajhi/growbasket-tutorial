@@ -1,8 +1,7 @@
 const express = require('express');
 const mySql = require('mysql');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
-const { forwardAuthenticated } = require('../config/auth');
+const bcrypt = require('bcryptjs');
 const con = require('../config/db');
 const router = express.Router();
 
@@ -18,7 +17,7 @@ router.get('/signup', (req, res) => {
 	res.render('regist', { title: 'Signup', name: 'account' });
 });
 // router.get('/signup')
-router.post('/account', (req, res) => {
+router.post('/account', async (req, res) => {
 	const {
 		username,
 		firstName,
@@ -28,47 +27,33 @@ router.post('/account', (req, res) => {
 		cpassword,
 	} = req.body;
 
-	// req.checkBody('username', 'Username field cannot be empty.').notEmpty();
-	// req.checkBody(
-	// 	'username',
-	// 	'Username must be between 4-15 characters long.'
-	// ).len(4, 15);
-	// req.checkBody(
-	// 	'email',
-	// 	'The email you entered is invalid, please try again.'
-	// ).isEmail();
-	// req.checkBody(
-	// 	'email',
-	// 	'Email address must be between 4-100 characters long, please try again.'
-	// ).len(4, 100);
-	// req.checkBody(
-	// 	'password',
-	// 	'Password must be between 8-100 characters long.'
-	// ).len(8, 100);
-	// req.checkBody(
-	// 	'password',
-	// 	'Password must include one lowercase character, one uppercase character, a number, and a special character.'
-	// ).matches(
-	// 	/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.* )(?=.*[^a-zA-Z0-9]).{8,}$/,
-	// 	'i'
-	// );
-	// req.checkBody(
-	// 	'passwordMatch',
-	// 	'Password must be between 8-100 characters long.'
-	// ).len(8, 100);
-	// req.checkBody(
-	// 	'passwordMatch',
-	// 	'Passwords do not match, please try again.'
-	// ).equals(req.body.password);
+	let hashedPassword = await bcrypt.hash(password, 8);
 
-	sess = req.session;
-	sess.email = email;
-
-	if (username == '') {
-		alert('Username cannot be empty');
-	}
-	if (password !== cpassword) {
-		alert('password does not match');
+	if (
+		!username ||
+		!firstName ||
+		!lastName ||
+		!email ||
+		!password ||
+		!cpassword
+	) {
+		return res.render('regist', {
+			message: 'Fields cannot be empty',
+			title: 'Signup',
+			name: 'account',
+		});
+	} else if (password !== cpassword) {
+		return res.render('regist', {
+			message: 'Password is not matching',
+			title: 'Signup',
+			name: 'account',
+		});
+	} else if (password.length < 4) {
+		return res.render('regist', {
+			message: 'Password length cannot be less than 4',
+			title: 'Signup',
+			name: 'account',
+		});
 	} else {
 		let sql =
 			"insert into user values ( NULL,'" +
@@ -82,47 +67,56 @@ router.post('/account', (req, res) => {
 			"','" +
 			password +
 			"' )";
-		con.query(sql, function (err, result) {
+		con.query(sql, async function (err, result) {
 			if (err) throw err;
-			console.log('1 record inserted');
+			console.log('Record inserted');
+		});
+		return res.render('regist', {
+			message: 'Your form has been submitted successfully',
+			title: 'Signup',
+			name: 'account',
 		});
 	}
-	req.session.save(function (err) {
-		if (err) {
-			console.log(err);
-		}
-	});
-	res.end('done');
 });
 
 router.post('/login', (req, res) => {
-	// console.log(req.body);
+	console.log(req.body);
 	const { username, password } = req.body;
+
+	if (!username || !password) {
+		return res.render('login', {
+			message: 'Field cannot be empty',
+			title: 'Login',
+			name: 'account',
+		});
+	}
+
 	let sql =
-		"select * from users where username = '" +
+		"select * from user where username = '" +
 		username +
 		"' and password = '" +
 		password +
-		"'";
+		"' ;";
+	console.log(sql);
 	con.query(sql, function (err, result) {
-		if (err) {
-			res.redirect('/signup');
+		console.log(result);
+		if (result.length > 0) {
+			console.log('User found');
+			return res.render('login', {
+				message: 'User found',
+				title: 'Login',
+				name: 'account',
+			});
 		} else {
-			res.redirect('/');
+			console.log('user not found');
+			console.log('result');
+			// res.redirect('/');
+			return res.render('login', {
+				message: 'Email or password is wrong',
+				title: 'Login',
+				name: 'account',
+			});
 		}
-	});
-	req.session.save(function (err) {
-		if (err) {
-			console.log(err);
-		}
-	});
-});
-
-router.get('/logout', (req, res) => {
-	res.send('logout successfull');
-	req.session.destroy(function (err) {
-		console.log(err);
-		// cannot access session here
 	});
 });
 

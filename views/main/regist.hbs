@@ -1,6 +1,7 @@
 {{>header}}
 
 <div class="section">
+
     <h2>Register Here</h2>
 
     <form action="/users/account" method="POST" class="form-label form-css-label">
@@ -34,5 +35,14 @@
     </form>
     <a href='/users/login'>Already registered? Click Here</a>
 
+    
+    
+
 </div>
+
+{{#if message}}
+        <div class='error'>
+            {{message}}
+        </div>
+    {{/if}}
 {{>footer}}

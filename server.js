@@ -35,6 +35,7 @@ app.use(
 		extended: true,
 	})
 );
+app.use(cookieParser());
 
 // Routing start
 app.use('/', require('./route/index'));
