@@ -2,11 +2,13 @@
 {{# each result}}
 <div class='cards'>
     <div class='card'>
-        <img src='{{product_link}}' alt='' />
-        <h2>{{product_name}}</h2>
-        <p>{{price}}</p>
-        <button><a href='{{redirect_link}}' target='_blank'>Watch now</a></button>
+        <img src='{{product_link}}' alt='' id="pimage" />
+        <h2 id="pname">{{product_name}}</h2>
+        <p id="pprice">{{price}}</p>
+        <button id="redirect"><a href='{{redirect_link}}' target='_blank'>Watch now</a></button>
+        <button id="ls" onclick="cart()">Add to Cart</button>
     </div>
 </div>
 {{/each}}
+
 {{> footer}}

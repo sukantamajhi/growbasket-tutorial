@@ -57,7 +57,7 @@
 	padding: 20px;
 
 	h3 {
-		color: $primary-color;
+		color: #F04700;
 		padding-bottom: 4%;
 		font-family: $heading;
 		font-size: 20px;
@@ -120,17 +120,21 @@
 	.fa-facebook:before {
 		content: '\f09a';
 		color: #1195f5;
+		font-size: 30px;
 	}
 	.fa-twitter:before {
 		content: '\f099';
+		font-size: 30px;
 		color: #1da1f2;
 	}
 	.fa-instagram:before {
 		content: '\f16d';
+		font-size: 30px;
 		color: #8a3ab9;
 	}
 	.fa-youtube-play:before {
 		content: '\f16a';
+		font-size: 30px;
 		color: #ff0000;
 	}
 }

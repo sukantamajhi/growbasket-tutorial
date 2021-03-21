@@ -11,7 +11,7 @@
             <label for="password">Password</label>
         </fieldset>
         <fieldset>
-            <button id="login" type="submit">SUBMIT</button>
+            <button id="login" type="submit" onclick="goBack()">SUBMIT</button>
         </fieldset>
     </form>
     <a href='/users/signup'>Don't have an account? Click Here</a>
@@ -23,5 +23,6 @@
             {{message}}
         </div>
     {{/if}}
+
 
 {{>footer}}

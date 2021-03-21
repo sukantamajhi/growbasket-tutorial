@@ -8,7 +8,13 @@ app = express();
 con.connect((err) => {});
 
 router.get('/sell', (req, res) => {
-	res.render('product_entry', { title: 'ProductEntry Us', name: 'sell' });
+	let cookie = req.cookies.jwt;
+	if (cookie !== undefined) {
+		res.render('product_entry', { title: 'ProductEntry Us', name: 'sell' });
+	} else {
+		res.redirect('/users/login');
+		// res.redirect('back');
+	}
 });
 router.post('/sell', (req, res) => {
 	const { product__name, imgsrc, price, redirect__link } = req.body;
