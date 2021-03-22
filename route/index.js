@@ -3,14 +3,12 @@ const pool = require('../config/db');
 const { route } = require('./product');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get( '/', ( req, res ) => {
+	// console.log(req.cookies.jwt);
 	res.render('index', {
 		title: 'Welcome to growbasket',
 		css: 'index',
 	});
-
-	// let cookie = req.cookies.jwt;
-	// res.send(req.cookies);
 });
 router.get('/index.html', (req, res) => {
 	res.redirect('/');
@@ -29,7 +27,11 @@ router.get('/about', (req, res) => {
 	res.render('about', { title: 'About Us' });
 });
 router.get('/contact', (req, res) => {
-	res.render('contact', { title: 'Contact Us', msg: 'Contact us' });
+	res.render('contact', {
+		title: 'Contact Us',
+		msg: 'Contact us',
+	});
+	// res.cookie;
 });
 router.get('/terms-and-conditions', (req, res) => {
 	res.render('toc', { title: 'Terms and Conditions' });
@@ -46,8 +48,6 @@ router.get('/account', (req, res) => {
 router.get('/dashboard', (req, res) => {
 	let cookie = req.cookies.jwt;
 	let cookie1 = req.cookies.userData;
-	// console.log(cookie1);
-	// let sql = 'select * from user where name =  ';
 	if (cookie !== undefined) {
 		res.render('dashboard', {
 			title: 'Dashboard',

@@ -29,6 +29,15 @@ app.use(
 app.use(cookieParser());
 
 // Routing start
+app.use(function (req, res, next) {
+	let cookies = req.cookies.jwt;
+	if (req.cookies.userData) {
+		let cookie1 = req.cookies.userData;
+		res.locals.uname = cookie1.name;
+	}
+	res.locals.isAuthenticated = req.cookies.jwt;
+	next();
+});
 app.use('/', require('./route/index'));
 app.use('/users', require('./route/users'));
 app.use('/product', require('./route/product'));

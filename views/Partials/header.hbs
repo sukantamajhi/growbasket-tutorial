@@ -30,10 +30,21 @@
                     <li>
                         <a href="/contact">Contact</a>
                     </li>
+                    {{#if isAuthenticated}}
                     <li>
-                        <a href="/account">Account</a>
+                        <a href='/account'>{{uname}}</a>
                     </li>
-                </ul>
+                    <li>
+                        <a href='/logout'>Logout</a>
+                    </li>
+                    {{else}}
+                    <li>
+                        <a href='/users/signup'>Signup</a>
+                    </li>
+                    <li>
+                        <a href='/users/login'>Login</a>
+                    </li>
+                    {{/if}}
             </nav>
         </div>
     </div>

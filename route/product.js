@@ -14,7 +14,7 @@ router.get('/sell', (req, res) => {
 
 	// console.log(uname);
 
-	if (cookie !== undefined) {
+	if (cookie !== undefined && cookie1 !== undefined) {
 		res.render('product_entry', {
 			title: 'ProductEntry Us',
 			css: 'sell',
