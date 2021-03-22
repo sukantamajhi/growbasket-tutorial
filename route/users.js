@@ -16,22 +16,22 @@ router.use(
 
 router.get('/login', (req, res) => {
 	if (req.cookies.jwt === undefined) {
-		res.render('login', { title: 'Login', name: 'account' });
+		res.render('login', { title: 'Login', css: 'account' });
 	} else {
 		res.redirect('/dashboard');
 	}
 });
 
 router.get('/signup', (req, res) => {
-	if (req.session.loggedIn == true) {
-		res.render('regist', { title: 'Signup', name: 'account' });
-	} else {
+	if (req.cookies.jwt !== undefined) {
 		res.redirect('/dashboard');
+	} else {
+		res.render('regist', { title: 'Signup', css: 'account' });
 	}
 });
 // router.get('/signup')
 router.post('/account', (req, res) => {
-	console.log(req.body);
+	// console.log(req.body);
 	let cookie = req.cookies.jwt;
 	if (cookie !== undefined) {
 		res.redirect('/');
@@ -46,18 +46,18 @@ router.post('/account', (req, res) => {
 		} = req.body;
 
 		let sql =
-			"select * from user where email='" +
-			email +
-			"' and username = '" +
+			"select * from user where username = '" +
 			username +
-			"' ";
+			"' or email = '" +
+			email +
+			"'";
 
 		con.query(sql, (err, result) => {
 			if (result.length > 0) {
 				return res.render('regist', {
 					message: 'user already exists',
 					title: 'Signup',
-					name: 'account',
+					css: 'account',
 				});
 			} else {
 				if (
@@ -71,19 +71,19 @@ router.post('/account', (req, res) => {
 					return res.render('regist', {
 						message: 'Fields cannot be empty',
 						title: 'Signup',
-						name: 'account',
+						css: 'account',
 					});
 				} else if (password !== cpassword) {
 					return res.render('regist', {
 						message: 'Password is not matching',
 						title: 'Signup',
-						name: 'account',
+						css: 'account',
 					});
 				} else if (password.length < 4) {
 					return res.render('regist', {
 						message: 'Password length cannot be less than 4',
 						title: 'Signup',
-						name: 'account',
+						css: 'account',
 					});
 				} else {
 					let sql =
@@ -118,7 +118,7 @@ router.post('/login', (req, res) => {
 		return res.render('login', {
 			message: 'Field cannot be empty',
 			title: 'Login',
-			name: 'account',
+			css: 'account',
 		});
 	}
 
@@ -128,16 +128,21 @@ router.post('/login', (req, res) => {
 		"' and password = '" +
 		escape(password) +
 		"' ;";
-	// console.log(sql);
 	con.query(sql, function (err, result) {
 		// console.log(result);
 		if (result.length > 0) {
 			// console.log(typeof req.body.username);
 			const id = result[0].id;
-			const username = result[0].username;
+			// const username = result[0].username;
+
+			let users = {
+				id: id,
+				name: req.body.username,
+			};
+
 			req.session.loggedIn = true;
 			req.session.username = username;
-			const token = jwt.sign({ id, username }, process.env.JWT_TOKEN, {
+			const token = jwt.sign({ id }, process.env.JWT_TOKEN, {
 				expiresIn: process.env.JWT_EXPIRES_IN,
 			});
 
@@ -151,14 +156,14 @@ router.post('/login', (req, res) => {
 				httpOnly: true,
 			};
 			res.cookie('jwt', token, cookieOptions);
+			res.cookie('userData', users);
 
 			res.status(200).redirect('/');
-			// window.history.back;
 		} else {
 			return res.render('login', {
 				message: 'Email or password is wrong',
 				title: 'Login',
-				name: 'account',
+				css: 'account',
 			});
 		}
 	});

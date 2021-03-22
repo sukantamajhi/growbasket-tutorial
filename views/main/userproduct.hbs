@@ -1,0 +1,15 @@
+{{> header}}
+{{# each result}}
+<div class='cards'>
+    <div class='card'>
+        <img src='{{product_link}}' alt='' id="pimage" />
+        <h2 id="pname">{{product_name}}</h2>
+        <p id="pprice">{{price}}</p>
+        <button id="redirect"><a href='{{redirect_link}}' target='_blank'>Watch now</a></button>
+        {{!-- <button id="ls" onclick="cart()">Add to Cart</button> --}}
+        <a href='/{{id}}/edit'>Edit Product</a>
+    </div>
+</div>
+{{/each}}
+
+{{> footer}}

@@ -1,41 +1,37 @@
 {{>header}}
-<h2>Sell your product</h2>
+<h2>Edit your product</h2>
 <div class='error'>
     {{message}}
 </div>
-<form name="product_sell" action='/product/sell' method='post' onsubmit="return check()">
+    {{#each result}}
 
-    <div class='username'>
-        <label for='username'>Username</label>
-        {{#if uname}}
-        <input type='text' name="username" id="username" class="username" value="{{uname}}" disabled/>
-        {{/if}}
-    </div>
-
+<form name="product_update" action='/product/{{id}}/update' method='post' onsubmit="return check()">
     <div class='imgsrc'>
         <label for='imgsrc'>Image Source</label>
-        <input type='text' class="imgsrc" name="imgsrc" id="imgsrc" required />
+        <input type='text' class="imgsrc" name="imgsrc" id="imgsrc" value="{{product_link}}" required />
     </div>
 
     <div class='pname'>
         <label for='product__name'>Product Name</label>
-        <input type='text' class="product__name" name="product__name" id="product__name" required />
+        <input type='text' class="product__name" name="product__name" id="product__name" value="{{product_name}}" required />
     </div>
     
     <div class='price'>
         <label for='price'>Price</label>
-        <input type='text' class="price" name="price" id="price" required />
+        <input type='text' class="price" name="price" id="price" value="{{price}}" required />
         <div id='price__error'></div>
     </div>
 
     <div class='red_link'>
         <label for='redirect__link'>Redirect Link</label>
-        <input type='url' class="redirect__link" name="redirect__link" id="redirect__link" required />
+        <input type='url' class="redirect__link" name="redirect__link" id="redirect__link" value="{{redirect_link}}" required />
     </div>
 
     <button type='submit'>Submit</button>
 
 </form>
+    {{/each}}
+
 
 <script>
     function check()
