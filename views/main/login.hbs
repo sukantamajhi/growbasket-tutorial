@@ -3,11 +3,11 @@
     <h2>Login Here</h2>
     <form action="/users/login" method="POST" class="form-label form-css-label">
         <fieldset>
-            <input id="username" name="username" type="text" autocomplete="off" required />
+            <input id="username" name="username" type="text" autocomplete="off" autofocus required />
             <label for="username">Username</label>
         </fieldset>
         <fieldset>
-            <input id="password" name="password" type="password" autocomplete="on" required />
+            <input id="password" name="password" type="password" autocomplete="on" autofocus required />
             <label for="password">Password</label>
         </fieldset>
         <fieldset>
@@ -17,12 +17,14 @@
     <a href='/users/signup'>Don't have an account? Click Here</a>
 
 </div>
-
+<div class='err'>
     {{#if message}}
-        <div class='error'>
-            {{message}}
-        </div>
+    <div class="error">
+        {{message}}
+    </div>
     {{/if}}
+</div>
+    
 
 
 {{>footer}}

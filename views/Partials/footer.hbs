@@ -23,6 +23,7 @@
                 <p><a href="/faqs">FAQs</a></p>
                 <p><a href="/contact">Contact Us</a></p>
                 <p><a href="/feedback">Feedback</a></p>
+                <p><a href='product/sell'>Sell</a></p>
             </div>
             <div class="foo-col-4">
                 <h3>Social Media</h3>
@@ -33,7 +34,7 @@
 				ww.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i>
                 </a>
                 <a href="https://www.youtube.com/">
-                <i class="fab fa-youtube"></i>
+                <i class="fab fa-youtube" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -45,6 +46,15 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+	$('input.header__searchInput').typeahead({
+		name: 'search',
+		remote: 'http://localhost:4000/search?key=%QUERY',
+		limit: 10,
+	});
+});
+</script>
 </body>
 
 </html>

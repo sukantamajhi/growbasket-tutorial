@@ -10,11 +10,9 @@ con.connect((err) => {});
 router.get('/sell', (req, res) => {
 	let cookie = req.cookies.jwt;
 	let cookie1 = req.cookies.userData;
-	let uname = cookie1.name;
-
-	// console.log(uname);
-
 	if (cookie !== undefined && cookie1 !== undefined) {
+		let uname = cookie1.name;
+
 		res.render('product_entry', {
 			title: 'ProductEntry Us',
 			css: 'sell',

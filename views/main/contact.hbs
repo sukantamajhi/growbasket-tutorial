@@ -1,3 +1,31 @@
 {{> header}}
-<p>{{msg}}</p>
+
+<div class='header'>
+    Stuck at somewhere? Feel free to contact us
+</div>
+<div class='form'>
+    <form action='/contactus' method='post'>
+    {{#if uname}}
+        <label for='username'>username</label>
+        <input type='text' id="username" name="username" class="username" value="{{uname}}" disabled />
+    {{/if}}
+
+        <label for='email'>Email</label>
+        <input type="email" id="email" name="email" class="email" />
+
+        <label for='msg'>Enter your msg here</label>
+        <textarea name='msg' id='msg' cols='30' rows='10'></textarea>
+        <button type='submit'>Submit</button>
+    </form>
+ 
+ {{#if msg}}
+    <div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">
+    ×
+  </span>
+    
+    {{msg}}
+    {{/if}}
+</div>
+</div>
 {{> footer}}

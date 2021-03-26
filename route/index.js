@@ -3,8 +3,10 @@ const pool = require('../config/db');
 const { route } = require('./product');
 const router = express.Router();
 
-router.get( '/', ( req, res ) => {
+router.get('/', (req, res) => {
 	// console.log(req.cookies.jwt);
+	// console.log(req.headers.referer);
+
 	res.render('index', {
 		title: 'Welcome to growbasket',
 		css: 'index',
@@ -24,14 +26,39 @@ router.get('/product', (req, res) => {
 	});
 });
 router.get('/about', (req, res) => {
-	res.render('about', { title: 'About Us' });
+	res.render('about', { title: 'About Us', css: 'about' });
 });
 router.get('/contact', (req, res) => {
-	res.render('contact', {
-		title: 'Contact Us',
-		msg: 'Contact us',
-	});
+	if (req.cookies.jwt) {
+		res.render('contact', {
+			title: 'Contact Us',
+			css: 'contact',
+		});
+	} else {
+		res.redirect('/users/login');
+	}
+
 	// res.cookie;
+});
+router.post('/contactus', (req, res) => {
+	// console.log(req.body);
+	const { email, msg } = req.body;
+	let sql =
+		"insert into contact values (NULL,'" +
+		req.cookies.userData.name +
+		"','" +
+		email +
+		"','" +
+		msg +
+		"')";
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		res.render('contact', {
+			title: 'Contact Us',
+			css: 'contact',
+			msg: 'Message successfully sent',
+		});
+	});
 });
 router.get('/terms-and-conditions', (req, res) => {
 	res.render('toc', { title: 'Terms and Conditions' });
@@ -48,7 +75,7 @@ router.get('/account', (req, res) => {
 router.get('/dashboard', (req, res) => {
 	let cookie = req.cookies.jwt;
 	let cookie1 = req.cookies.userData;
-	if (cookie !== undefined) {
+	if (cookie) {
 		res.render('dashboard', {
 			title: 'Dashboard',
 			msg: 'dashboard',
@@ -101,6 +128,24 @@ router.get('/404.html', (req, res) => {
 	res.status(404).render('404', {
 		title: 'Ooopsss...Page Not Found',
 		css: '404',
+	});
+});
+// router.get( '/wishlist', ( req, res ) => {
+// 	if ( req.cookies.jwt )
+
+// });
+
+router.get('/search', (req, res) => {
+	let sql =
+		'select * from products where product_name like "%' +
+		req.query.search +
+		'%"';
+	console.log(sql);
+	pool.query(sql, function (err, result) {
+		if (err) throw err;
+		res.render('product', {
+			result: result,
+		});
 	});
 });
 

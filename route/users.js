@@ -10,15 +10,13 @@ const router = express.Router();
 
 const app = express();
 
-router.use(
-	session({ secret: 'secret', resave: true, saveUninitialized: true })
-); //Session setup
-
 router.get('/login', (req, res) => {
+	// console.log(req.headers.referer);
 	if (req.cookies.jwt === undefined) {
 		res.render('login', { title: 'Login', css: 'account' });
 	} else {
-		res.redirect('/dashboard');
+		res.clearCookie('url');
+		res.redirect('back');
 	}
 });
 
@@ -47,15 +45,15 @@ router.post('/account', (req, res) => {
 
 		let sql =
 			"select * from user where username = '" +
-			username +
+			escape(username) +
 			"' or email = '" +
-			email +
+			escape(email) +
 			"'";
 
 		con.query(sql, (err, result) => {
 			if (result.length > 0) {
 				return res.render('regist', {
-					message: 'user already exists',
+					message: 'username or email is not available',
 					title: 'Signup',
 					css: 'account',
 				});
@@ -110,7 +108,7 @@ router.post('/account', (req, res) => {
 	}
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
 	// console.log(req.body);
 	const { username, password } = req.body;
 
@@ -140,13 +138,9 @@ router.post('/login', (req, res) => {
 				name: req.body.username,
 			};
 
-			req.session.loggedIn = true;
-			req.session.username = username;
 			const token = jwt.sign({ id }, process.env.JWT_TOKEN, {
 				expiresIn: process.env.JWT_EXPIRES_IN,
 			});
-
-			// console.log('JWT token is: ', token);
 
 			const cookieOptions = {
 				expires: new Date(
@@ -156,8 +150,7 @@ router.post('/login', (req, res) => {
 				httpOnly: true,
 			};
 			res.cookie('jwt', token, cookieOptions);
-			res.cookie('userData', users);
-
+			res.cookie('userData', users, cookieOptions);
 			res.status(200).redirect('/');
 		} else {
 			return res.render('login', {
