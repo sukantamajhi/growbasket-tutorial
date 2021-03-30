@@ -1,15 +1,18 @@
 const express = require('express');
+const { Result } = require('express-validator');
 const pool = require('../config/db');
 const { route } = require('./product');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	// console.log(req.cookies.jwt);
-	// console.log(req.headers.referer);
+	let sql = 'select * from products limit 0,8';
 
-	res.render('index', {
-		title: 'Welcome to growbasket',
-		css: 'index',
+	pool.query(sql, (err, result) => {
+		res.render('index', {
+			title: 'Welcome to growbasket',
+			css: 'index',
+			result: result,
+		});
 	});
 });
 router.get('/index.html', (req, res) => {
@@ -130,20 +133,36 @@ router.get('/404.html', (req, res) => {
 		css: '404',
 	});
 });
-// router.get( '/wishlist', ( req, res ) => {
-// 	if ( req.cookies.jwt )
-
-// });
 
 router.get('/search', (req, res) => {
+	let prod = req.query.search;
+	// console.log(prod);
 	let sql =
 		'select * from products where product_name like "%' +
 		req.query.search +
 		'%"';
-	console.log(sql);
-	pool.query(sql, function (err, result) {
+	// console.log(sql);
+	pool.query(sql, function (err, result, fields) {
 		if (err) throw err;
-		res.render('product', {
+		let list = result.length;
+		if (result.length > 0) {
+			res.render('product', {
+				result: result,
+				msg: 'Showing ' + list + ' items',
+			});
+		} else {
+			res.render('product', {
+				msg: 'Search item not found. ',
+			});
+		}
+	});
+});
+
+router.get('/wishlist', (req, res) => {
+	let sql = 'select * from wishlist';
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		res.render('wishlist', {
 			result: result,
 		});
 	});

@@ -1,0 +1,19 @@
+<h2 class="title">
+    Latest Product
+</h2>
+<div class="row">
+    {{#each result}}
+    <a href='{{redirect_link}}' target="_blank">
+        <div class="col-4">
+            <img src="{{product_link}}" alt="Product1" />
+            <h4>
+                {{product_name}}
+            </h4>
+            <p>
+                MRP: Rs <strong>{{price}}</strong> (Inclusive of all taxes)
+
+            </p>
+        </div>
+    </a>
+    {{/each}}
+</div>

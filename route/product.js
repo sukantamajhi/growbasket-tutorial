@@ -107,10 +107,13 @@ router.get('/wishlist/:id/:product_name', (req, res) => {
 		"' and product_name='" +
 		req.params.product_name +
 		"'";
-	console.log(sql);
 	con.query(sql, (err, result) => {
 		if (err) throw err;
-		if (req.cookies.jwt && req.cookies.userData) {
+		console.log(result.length);
+		if (result.length > 0) {
+			res.redirect('/product');
+			return false;
+		} else if (req.cookies.jwt && req.cookies.userData) {
 			let newResult = JSON.stringify(result);
 			let result1 = JSON.parse(newResult);
 			let wishlist =
@@ -136,6 +139,18 @@ router.get('/wishlist/:id/:product_name', (req, res) => {
 		} else {
 			res.status(307).redirect('/');
 		}
+	});
+});
+router.get('/delete/:id/:product_name', (req, res) => {
+	let sql =
+		'DELETE FROM `wishlist` WHERE id = "' +
+		req.params.id +
+		'" and product_name = "' +
+		req.params.product_name +
+		'"';
+	con.query(sql, (err, result) => {
+		if (err) throw err;
+		res.redirect('/wishlist');
 	});
 });
 module.exports = router;

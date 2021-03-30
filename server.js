@@ -7,6 +7,8 @@ const con = require('./config/db');
 const dotenv = require('dotenv');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const axios = require('axios').default;
+const flash = require('connect-flash');
 const port = process.env.PORT || 4000;
 
 const app = express();
@@ -27,6 +29,7 @@ app.use(
 	})
 );
 app.use(cookieParser());
+app.use(flash());
 
 // Error middleware
 // error handler
@@ -47,11 +50,6 @@ app.use(function (req, res, next) {
 		let cookie1 = req.cookies.userData;
 		res.locals.uname = cookie1.name;
 	}
-	if ( req.cookies.url )
-	{
-		let url = req.cookies.url.url;
-		res.locals.redirectTo = url;
-	}
 	res.locals.isAuthenticated = req.cookies.jwt;
 	next();
 });
@@ -59,9 +57,9 @@ app.use('/', require('./route/index'));
 app.use('/users', require('./route/users'));
 app.use('/product', require('./route/product'));
 
-app.get('*', function (req, res) {
-	res.status(404).redirect('/404.html');
-});
+// app.get('*', function (req, res) {
+// 	// res.status(404);
+// });
 // Routing end
 
 app.listen(port, () => {

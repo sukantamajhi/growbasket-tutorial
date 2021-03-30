@@ -1,1 +1,159 @@
-/* No CSS */
+.container {
+	width: 1300px;
+	margin: auto;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+.row {
+	display: flex;
+	align-items: center;
+	position: relative;
+	top: 32px;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding: 20px;
+}
+.row h1 {
+	color: rgb(240, 0, 0);
+}
+.row .heading_text {
+	font-size: 20px;
+	font-weight: 500;
+	color: #ff0000;
+}
+.col-2 {
+	flex-basis: 50%;
+	min-width: 300px;
+}
+.col-2 img {
+	max-width: 100%;
+	padding: 50px 0;
+	height: 500px;
+}
+.col-2 h1 {
+	font-size: 50px;
+	line-height: 60px;
+	margin: 25px 0;
+}
+.btn {
+	display: inline-block;
+	background: #f0361d;
+	color: #fff;
+	padding: 8px 30px;
+	margin: 30px 0;
+	border-radius: 30px;
+	transition: 0.5s;
+	cursor: pointer;
+}
+.btn:hover {
+	display: inline-block;
+	background: #8f0404;
+	color: #fff;
+	border-radius: 30px;
+	transition: 0.5s;
+	transform: scale(1.04);
+}
+.header {
+	background: radial-gradient(#7de1ff, #a2ff6c);
+	height: 100vh;
+	padding-bottom: 90px;
+}
+.category {
+	margin: 70px 0;
+}
+.col-3 {
+	flex-basis: 30%;
+	min-width: 200px;
+	margin-bottom: 30px;
+}
+.col-3 img {
+	width: 100%;
+}
+.small-container {
+	max-width: 1080px;
+	margin: auto;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+.col-4 {
+	flex-basis: 25%;
+	padding: 10px;
+	min-width: 200px;
+	margin-bottom: 50px;
+	transition: transform 0.5s;
+}
+a {
+	text-decoration: none;
+}
+.col-4 img {
+	width: 100%;
+}
+.title {
+	text-align: center;
+	color: #555;
+	margin: 0 auto 80px;
+	position: relative;
+	top: 90px;
+	line-break: 60px;
+}
+.title::after {
+	content: '';
+	background: #ff523b;
+	width: 120px;
+	height: 5px;
+	border-radius: 5px;
+	position: absolute;
+	margin-bottom: -4px;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%);
+}
+h4 {
+	color: #d41d1d;
+	font-weight: normal;
+}
+.col-4 p {
+	font-size: 14px;
+}
+.rating .fa {
+	color: #ff523b;
+}
+.col-4:hover {
+	transform: scale(1.04);
+}
+/* --------offer---------------- */
+.offer {
+	background: radial-gradient(#7de1ff, #a2ff6c);
+	margin-top: 80px;
+	padding: 30px 0;
+}
+.offer p {
+	color: black;
+}
+.offer img small {
+	color: #ddb9b9;
+}
+/* ------------------about-us------------------ */
+.about_us {
+	padding-top: 100px;
+	position: relative;
+	top: -111px;
+}
+.about_us .col-3 {
+	text-align: center;
+	padding: 40px 20px;
+	box-shadow: 0 0 20px 0px rgba(7, 7, 7, 0.39);
+	cursor: pointer;
+	transition: transform 0.5s;
+}
+.about_us .col-3 img {
+	width: 50px;
+	margin-top: 20px;
+	text-align: center;
+}
+.about_us .col-3:hover {
+	transform: translateY(-10px);
+}
+.fa fa-quote-left {
+	color: #ff523b;
+}
