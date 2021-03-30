@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const express = require('express');
 const mySql = require('mysql');
 const con = require('../config/db');
@@ -79,5 +80,62 @@ router.post('/:id/update', (req, res) => {
 		res.redirect('/addlist');
 	});
 });
+router.get('/:id/:product_name', (req, res) => {
+	// let name = req.params.product__name;
+	// console.log(name);
+	let sql =
+		"select * from products where id = '" +
+		req.params.id +
+		"'and product_name = '" +
+		req.params.product_name +
+		"'";
+	// console.log(sql);
+	con.query(sql, (err, result) => {
+		if (err) throw err;
+		// console.log(result.product__name);
 
+		res.render('product', {
+			// title: name,
+			result: result,
+		});
+	});
+});
+router.get('/wishlist/:id/:product_name', (req, res) => {
+	let sql =
+		"select * from products where id = '" +
+		req.params.id +
+		"' and product_name='" +
+		req.params.product_name +
+		"'";
+	console.log(sql);
+	con.query(sql, (err, result) => {
+		if (err) throw err;
+		if (req.cookies.jwt && req.cookies.userData) {
+			let newResult = JSON.stringify(result);
+			let result1 = JSON.parse(newResult);
+			let wishlist =
+				"insert into wishlist(id, username, product_name, product_image, price,redirect_link) values ('" +
+				req.params.id +
+				"','" +
+				req.cookies.userData.name +
+				"','" +
+				req.params.product_name +
+				"','" +
+				result1[0].product_link +
+				"','" +
+				result1[0].price +
+				"','" +
+				result1[0].redirect_link +
+				"')";
+			// console.log(wishlist);
+			con.query(wishlist, (err, rows) => {
+				// console.log(rows);
+				if (err) throw err;
+				res.redirect('/wishlist');
+			});
+		} else {
+			res.status(307).redirect('/');
+		}
+	});
+});
 module.exports = router;
