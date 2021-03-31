@@ -2,6 +2,8 @@ const express = require('express');
 const { Result } = require('express-validator');
 const pool = require('../config/db');
 const { route } = require('./product');
+const mail = require('../config/mail');
+const { getMaxListeners } = require('../config/db');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -44,23 +46,38 @@ router.get('/contact', (req, res) => {
 	// res.cookie;
 });
 router.post('/contactus', (req, res) => {
-	// console.log(req.body);
-	const { email, msg } = req.body;
+	console.log(req.body);
+	const { email, message } = req.body;
 	let sql =
 		"insert into contact values (NULL,'" +
 		req.cookies.userData.name +
 		"','" +
 		email +
 		"','" +
-		msg +
+		message +
 		"')";
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
+		let mailOptions = {
+			from: 'majhisukanta48@gmail.com',
+			to: email,
+			subject: 'Contact Us',
+			html:
+				'Hello ' +
+				req.cookies.userData.name +
+				'. Welcome to GrowBasket. Thank you for contacting us. We are trying to figure out what We can do',
+		};
+		console.log(mailOptions);
+		mail.sendMail(mailOptions, (err, info) => {
+			if (err) throw err;
+			console.log('Mail has been sent successfully' + info.response);
+		});
 		res.render('contact', {
 			title: 'Contact Us',
 			css: 'contact',
 			msg: 'Message successfully sent',
 		});
+		// res.redirect('/contact');
 	});
 });
 router.get('/terms-and-conditions', (req, res) => {

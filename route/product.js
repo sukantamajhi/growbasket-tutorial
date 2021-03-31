@@ -102,40 +102,50 @@ router.get('/:id/:product_name', (req, res) => {
 });
 router.get('/wishlist/:id/:product_name', (req, res) => {
 	let sql =
-		"select * from products where id = '" +
+		"select * from wishlist where id = '" +
 		req.params.id +
 		"' and product_name='" +
 		req.params.product_name +
 		"'";
+	console.log(sql);
 	con.query(sql, (err, result) => {
 		if (err) throw err;
-		console.log(result.length);
+		console.log(result);
 		if (result.length > 0) {
-			res.redirect('/product');
-			return false;
+			res.redirect('/wishlist');
 		} else if (req.cookies.jwt && req.cookies.userData) {
-			let newResult = JSON.stringify(result);
-			let result1 = JSON.parse(newResult);
-			let wishlist =
-				"insert into wishlist(id, username, product_name, product_image, price,redirect_link) values ('" +
-				req.params.id +
-				"','" +
-				req.cookies.userData.name +
-				"','" +
-				req.params.product_name +
-				"','" +
-				result1[0].product_link +
-				"','" +
-				result1[0].price +
-				"','" +
-				result1[0].redirect_link +
-				"')";
-			// console.log(wishlist);
-			con.query(wishlist, (err, rows) => {
-				// console.log(rows);
-				if (err) throw err;
-				res.redirect('/wishlist');
-			});
+			con.query(
+				'select * from products where id="' +
+					req.params.id +
+					'" and product_name = "' +
+					req.params.product_name +
+					'"',
+				(err, result) => {
+					let newResult = JSON.stringify(result);
+					let result1 = JSON.parse(newResult);
+					console.log(result1);
+					let wishlist =
+						"insert into wishlist(id, username, product_name, product_image, price,redirect_link) values ('" +
+						req.params.id +
+						"','" +
+						req.cookies.userData.name +
+						"','" +
+						req.params.product_name +
+						"','" +
+						result1[0].product_link +
+						"','" +
+						result1[0].price +
+						"','" +
+						result1[0].redirect_link +
+						"')";
+					// console.log(wishlist);
+					con.query(wishlist, (err, rows) => {
+						// console.log(rows);
+						if (err) throw err;
+						res.redirect('/wishlist');
+					});
+				}
+			);
 		} else {
 			res.status(307).redirect('/');
 		}

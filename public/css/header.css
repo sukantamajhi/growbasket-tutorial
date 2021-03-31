@@ -187,7 +187,7 @@ p {
 
 .dropdown-content a:hover {
 	background-color: #ddd;
-    color: black;
+	color: black;
 }
 .account:hover .dropdown-content {
 	display: block;
