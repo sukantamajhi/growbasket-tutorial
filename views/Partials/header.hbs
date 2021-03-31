@@ -9,14 +9,8 @@
             </div>
             <div class="header__search">
                 <form action='/search?key=%QUERY' method='get' id="searchinput" class="searchinput" name="searchinput">
-                    <input
-                    type="text"
-                    class="header__searchInput"
-                    placeholder="Search Products Here..."
-                    name="search"
-                    spellcheck="false" 
-                    autocomplete="off"
-                    />
+                    <input type="text" class="header__searchInput" placeholder="Search Products Here..." name="search"
+                        spellcheck="false" autocomplete="off" />
                     <button type="submit"><i class="fa fa-search" id="header__searchIcon"></i></button>
                 </form>
             </div>
@@ -37,8 +31,16 @@
                         <a href="/contact">Contact</a>
                     </li>
                     {{#if isAuthenticated}}
-                    <li>
-                        <a href='/account'>{{uname}}</a>
+                    <li class="account">
+                        <a href='/account' id="account">{{uname}}</a>
+                        <div class="dropdown-content">
+                            <a href='/dashboard'>Your Account</a>
+                            <a href="/product/sell">Sell your product</a>
+                            <a href="/addlist">Added Products</a>
+                            <a href="/wishlist">Wishlist</a>
+                            <a href='#'>Coupons</a>
+                            <a href='#'>Your orders</a>
+                        </div>
                     </li>
                     <li>
                         <a href='/logout'>Logout</a>
@@ -55,4 +57,3 @@
         </div>
     </div>
 </div>
-
