@@ -14,7 +14,7 @@
                     can find your necessary groccery item at a very
                     cheap price.
                 </p>
-                <a href="product.html" class="btn">
+                <a href="/product" class="btn">
                     Shop Now →
                 </a>
             </div>
@@ -26,123 +26,16 @@
 </div>
 
 
-{{> featuredproduct}}
-
-{{> latestproduct}}
-
-<button id='show_more'> <a href='/product'>Show More</a> </button>
+{{!-- {{> featuredproduct}} --}}
+<h2 class="title">
+    Latest Product
+</h2>
+{{> productlist}}
+<div class='showmore'>
+    <a href='/product'><button id='show_more'> Show More </button></a>
+</div>
 <h2 class="title">
     About Us
 </h2>
-<div class="about_us">
-    <div class="small-container">
-        <div class="row">
-            <div class="col-3">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit. Laborum laboriosam sed rerum quis impedit
-                    magni nisi veniam molestias, facere odio laudantium
-                    id fugit consequuntur sit ipsam quod dicta voluptas?
-                </p>
-                <i class="fa fa-quote-right" aria-hidden="true"></i>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="image/user-1.png" alt="user-1" />
-                <h3>
-                    Sukanta Majhi
-                </h3>
-            </div>
-            <div class="col-3">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit. Laborum laboriosam sed rerum quis impedit
-                    magni nisi veniam molestias, facere odio laudantium
-                    id fugit consequuntur sit ipsam quod dicta voluptas?
-                </p>
-                <i class="fa fa-quote-right" aria-hidden="true"></i>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="image/user-2.png" alt="user-2" />
-                <h3>
-                    Tanmoy Roy
-                </h3>
-            </div>
-            <div class="col-3">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit. Laborum laboriosam sed rerum quis impedit
-                    magni nisi veniam molestias, facere odio laudantium
-                    id fugit consequuntur sit ipsam quod dicta voluptas?
-                </p>
-                <i class="fa fa-quote-right" aria-hidden="true"></i>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="image/user-3.png" alt="user-3" />
-                <h3>
-                    Soumyajit Banerjee
-                </h3>
-            </div>
-            <div class="col-3">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit. Laborum laboriosam sed rerum quis impedit
-                    magni nisi veniam molestias, facere odio laudantium
-                    id fugit consequuntur sit ipsam quod dicta voluptas?
-                </p>
-                <i class="fa fa-quote-right" aria-hidden="true"></i>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="image/user-3.png" alt="user-3" />
-                <h3>
-                    Arkadeb Mondol
-                </h3>
-            </div>
-            <div class="col-3">
-                <i class="fa fa-quote-left" aria-hidden="true"></i>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur, adipisicing
-                    elit. Laborum laboriosam sed rerum quis impedit
-                    magni nisi veniam molestias, facere odio laudantium
-                    id fugit consequuntur sit ipsam quod dicta voluptas?
-                </p>
-                <i class="fa fa-quote-right" aria-hidden="true"></i>
-                <div class="rating">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                </div>
-                <img src="image/user-3.png" alt="user-3" />
-                <h3>
-                    Rajan Shaw
-                </h3>
-            </div>
-        </div>
-    </div>
-</div>
+{{>aboutus}}
 {{> footer}}

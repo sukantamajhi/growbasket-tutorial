@@ -57,9 +57,9 @@ app.use('/', require('./route/index'));
 app.use('/users', require('./route/users'));
 app.use('/product', require('./route/product'));
 
-// app.get('*', function (req, res) {
-// 	// res.status(404);
-// });
+app.get('*', function (req, res) {
+	res.status(404).redirect('404.html');
+});
 // Routing end
 
 app.listen(port, () => {

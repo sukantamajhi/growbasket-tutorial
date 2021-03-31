@@ -5,7 +5,7 @@ const { route } = require('./product');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	let sql = 'select * from products limit 0,8';
+	let sql = 'select * from products limit 0,16';
 
 	pool.query(sql, (err, result) => {
 		res.render('index', {

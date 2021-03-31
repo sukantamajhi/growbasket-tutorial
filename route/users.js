@@ -13,7 +13,7 @@ const app = express();
 router.get('/login', (req, res) => {
 	// console.log(req.headers.referer);
 	if (req.cookies.jwt === undefined) {
-		res.render('login', { title: 'Login', css: 'account' });
+		res.render('login', { title: 'Login', css: 'login' });
 	} else {
 		res.clearCookie('url');
 		res.redirect('back');

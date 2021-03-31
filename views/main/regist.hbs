@@ -29,20 +29,20 @@
             <input id="cpassword" name="cpassword" type="password" autocomplete="on" required />
             <label for="cpassword">Confirm Password*</label>
         </fieldset>
-        <fieldset>
+        <div class="showmore">
             <button id="login" type="submit">SUBMIT</button>
-        </fieldset>
+        </div>
     </form>
     <a href='/users/login'>Already registered? Click Here</a>
 
-    
-    
+
+
 
 </div>
 
 {{#if message}}
-        <div class='error'>
-            {{message}}
-        </div>
-    {{/if}}
+<div class='error'>
+    {{message}}
+</div>
+{{/if}}
 {{>footer}}

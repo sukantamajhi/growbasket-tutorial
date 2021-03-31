@@ -1,18 +1,12 @@
 {{> header}}
 <div class='msg'>
-{{msg}}
+    {{msg}}
 </div>
-{{# each result}}
-<div class='cards'>
-    <div class='card'>
-        <img src='{{product_link}}' alt='' id="pimage" />
-        <h2 id="pname"> <a href='/product/{{id}}/{{product_name}}'>{{product_name}}</a></h2>
-        <p id="pprice">{{price}}</p>
-        <button id="redirect"><a href='{{redirect_link}}' target='_blank'>Watch now</a></button>
-        <button id="ls" onclick="cart()">Add to Cart</button>
-        <button id='wishlist'> <a href='/product/wishlist/{{id}}/{{product_name}}'>Add to Wishlist</a></button>
-    </div>
-</div>
-{{/each}}
-<script src='javascript/cart.js' defer></script>
+{{> slideshowcontainer}}
+<h2 class="title">
+    Products available in our store
+</h2>
+{{> productlist}}
+{{!--
+<script src='javascript/cart.js' defer></script> --}}
 {{> footer}}

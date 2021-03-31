@@ -12,6 +12,7 @@ html {
 
 body {
 	font-family: 'Open Sans', sans-serif;
+	margin-top: 70px;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -44,10 +45,12 @@ body {
 	justify-content: center;
 	padding: 0 30px;
 	top: 0;
+	left: 0;
 	width: 100%;
 	margin: auto;
 	z-index: 100;
 	background-color: #111b1e;
+	position: fixed;
 	z-index: 1000;
 }
 nav {
