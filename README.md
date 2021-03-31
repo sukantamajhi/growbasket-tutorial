@@ -15,7 +15,7 @@ $ npm start
 # Or run with Nodemon
 $ npm run serve
 
-# Visit http://localhost:5000
+# Visit http://localhost:4000
 ```
 
 Change your database details
