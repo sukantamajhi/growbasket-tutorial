@@ -46,7 +46,6 @@ router.get('/contact', (req, res) => {
 	// res.cookie;
 });
 router.post('/contactus', (req, res) => {
-	console.log(req.body);
 	const { email, message } = req.body;
 	let sql =
 		"insert into contact values (NULL,'" +
@@ -59,18 +58,16 @@ router.post('/contactus', (req, res) => {
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
 		let mailOptions = {
-			from: 'majhisukanta48@gmail.com',
+			from: 'admin@growbasket.in',
 			to: email,
-			subject: 'Contact Us',
+			subject: 'Thank you for contcting us',
 			html:
 				'Hello ' +
 				req.cookies.userData.name +
 				'. Welcome to GrowBasket. Thank you for contacting us. We are trying to figure out what We can do',
 		};
-		console.log(mailOptions);
 		mail.sendMail(mailOptions, (err, info) => {
 			if (err) throw err;
-			console.log('Mail has been sent successfully' + info.response);
 		});
 		res.render('contact', {
 			title: 'Contact Us',
@@ -153,23 +150,20 @@ router.get('/404.html', (req, res) => {
 
 router.get('/search', (req, res) => {
 	let prod = req.query.search;
-	// console.log(prod);
-	let sql =
-		'select * from products where product_name like "%' +
-		req.query.search +
-		'%"';
-	// console.log(sql);
+	let sql = 'select * from products where product_name like "%' + prod + '%"';
 	pool.query(sql, function (err, result, fields) {
 		if (err) throw err;
 		let list = result.length;
 		if (result.length > 0) {
-			res.render('product', {
+			res.render('searchproductlist', {
 				result: result,
 				msg: 'Showing ' + list + ' items',
+				css: 'product',
 			});
 		} else {
-			res.render('product', {
+			res.render('searchproductlist', {
 				msg: 'Search item not found. ',
+				css: 'product',
 			});
 		}
 	});

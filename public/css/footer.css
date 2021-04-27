@@ -11,6 +11,7 @@
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
+	margin-top: 5px;
 }
 .footer__container .foo-row-cr {
 	display: -webkit-box;
@@ -71,7 +72,7 @@
 	flex-wrap: wrap;
 	-ms-flex-pack: distribute;
 	justify-content: space-around;
-	padding: 20px;
+	padding: 10px;
 }
 .foo-row h3 {
 	color: #f04700;

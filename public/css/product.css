@@ -325,10 +325,19 @@ h4 {
 	position: relative;
 }
 #addwishlist {
-	position: absolute;
-	top: 197px;
-	right: 126px;
-	padding: 4px 37px;
+	margin-top: 13px;
+	padding: 10px 37px;
+	background-color: #ff0707;
+	/* color: #fff; */
+	outline: none;
+	border: 1px solid #ff0707;
+	border-radius: 5px;
+}
+#addwishlist a {
+	color: #fff;
+}
+#addwishlist:hover {
+	border: 1px solid black;
 }
 .footer {
 	height: auto;

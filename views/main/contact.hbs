@@ -8,7 +8,7 @@
   <p id="failure">Oopsie...message not sent.</p>
   <p id="success">Your message was sent successfully. Thank you!</p>
 
-  <form method="post" action="/contactus">
+  <form method="post" action="/contactus" id="contactus">
     {{#if uname}}
     <div>
       <label for="name">
@@ -29,7 +29,7 @@
     <div>
       <label for="message">
         <span class="required">Message: *</span>
-        <textarea id="message" name="message" placeholder="Please write your message here." tabindex="5"
+        <textarea id="message" name="message" placeholder="Please write your message here." tabindex="3"
           required="required"></textarea>
       </label>
     </div>

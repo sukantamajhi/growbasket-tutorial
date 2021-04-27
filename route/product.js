@@ -25,7 +25,6 @@ router.get('/sell', (req, res) => {
 	}
 });
 router.post('/sell', (req, res) => {
-	// console.log(req.body);
 	username = req.cookies.userData.name;
 	const { product__name, imgsrc, price, redirect__link } = req.body;
 
@@ -53,7 +52,6 @@ router.post('/sell', (req, res) => {
 
 		con.query(sql, (err, result) => {
 			if (err) throw err;
-			console.log('1 row inserted');
 		});
 	}
 
@@ -61,7 +59,6 @@ router.post('/sell', (req, res) => {
 });
 
 router.post('/:id/update', (req, res) => {
-	// console.log(req.body);
 	const { imgsrc, product__name, price, redirect__link } = req.body;
 	let sql =
 		"update products set product_link = '" +
@@ -82,17 +79,14 @@ router.post('/:id/update', (req, res) => {
 });
 router.get('/:id/:product_name', (req, res) => {
 	// let name = req.params.product__name;
-	// console.log(name);
 	let sql =
 		"select * from products where id = '" +
 		req.params.id +
 		"'and product_name = '" +
 		req.params.product_name +
 		"'";
-	// console.log(sql);
 	con.query(sql, (err, result) => {
 		if (err) throw err;
-		// console.log(result.product__name);
 
 		res.render('product', {
 			// title: name,
@@ -107,10 +101,8 @@ router.get('/wishlist/:id/:product_name', (req, res) => {
 		"' and product_name='" +
 		req.params.product_name +
 		"'";
-	console.log(sql);
 	con.query(sql, (err, result) => {
 		if (err) throw err;
-		console.log(result);
 		if (result.length > 0) {
 			res.redirect('/wishlist');
 		} else if (req.cookies.jwt && req.cookies.userData) {
@@ -123,7 +115,6 @@ router.get('/wishlist/:id/:product_name', (req, res) => {
 				(err, result) => {
 					let newResult = JSON.stringify(result);
 					let result1 = JSON.parse(newResult);
-					console.log(result1);
 					let wishlist =
 						"insert into wishlist(id, username, product_name, product_image, price,redirect_link) values ('" +
 						req.params.id +
@@ -138,9 +129,7 @@ router.get('/wishlist/:id/:product_name', (req, res) => {
 						"','" +
 						result1[0].redirect_link +
 						"')";
-					// console.log(wishlist);
 					con.query(wishlist, (err, rows) => {
-						// console.log(rows);
 						if (err) throw err;
 						res.redirect('/wishlist');
 					});
