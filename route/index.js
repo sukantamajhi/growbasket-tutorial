@@ -66,8 +66,26 @@ router.post('/contactus', (req, res) => {
 				req.cookies.userData.name +
 				'. Welcome to GrowBasket. Thank you for contacting us. We are trying to figure out what We can do',
 		};
+		let toMe = {
+			from: 'admin@growbasket.in',
+			to: 'majhisukanta48@gmail.com',
+			subject: 'Contact Message',
+			html:
+				'<h2>Name: ' +
+				req.cookies.userData.name +
+				'</h2> <h2>Email: ' +
+				email +
+				'</h2> <h2>Message: ' +
+				message +
+				'</h2>',
+		};
 		mail.sendMail(mailOptions, (err, info) => {
 			if (err) throw err;
+			console.log('Email sent to user');
+		});
+		mail.sendMail(toMe, (err, info) => {
+			if (err) throw err;
+			console.log('Message sent to admin');
 		});
 		res.render('contact', {
 			title: 'Contact Us',
