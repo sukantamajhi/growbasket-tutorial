@@ -9,7 +9,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const axios = require("axios").default;
 const flash = require("connect-flash");
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 5000;
 
 const app = express();
 dotenv.config("../.env");
