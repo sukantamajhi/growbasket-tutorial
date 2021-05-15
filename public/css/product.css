@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 /* product */
 a {
 	text-decoration: none;
@@ -7,7 +7,7 @@ a {
 }
 .prod__heading {
 	text-align: center;
-	font-family: 'Montserrat', sans-serif;
+	font-family: "Montserrat", sans-serif;
 	text-decoration: underline;
 	margin: 30px 0;
 }
@@ -119,7 +119,7 @@ img {
 	bottom: 50%;
 	width: 100%;
 	font-size: 30px;
-	font-family: 'Montserrat', sans-serif;
+	font-family: "Montserrat", sans-serif;
 	text-align: center;
 }
 /* Number text (1/3 etc) */
@@ -274,7 +274,7 @@ a {
 	line-break: 60px;
 }
 .title::after {
-	content: '';
+	content: "";
 	background: #ff523b;
 	width: 120px;
 	height: 5px;
@@ -339,6 +339,22 @@ h4 {
 #addwishlist:hover {
 	border: 1px solid black;
 }
+#buy {
+	margin-top: 13px;
+	padding: 10px 37px;
+	background-color: #ff0707;
+	/* color: #fff; */
+	outline: none;
+	border: 1px solid #ff0707;
+	border-radius: 5px;
+}
+#buy a {
+	color: #fff;
+}
+#buy:hover {
+	border: 1px solid black;
+}
+
 .footer {
 	height: auto;
 	display: -webkit-box;

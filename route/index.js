@@ -7,7 +7,9 @@ const { getMaxListeners } = require("../config/db");
 const router = express.Router();
 
 router.get("/", (req, res) => {
+
 	let sql = "select * from products limit 0,8";
+
 
 	pool.query(sql, (err, result) => {
 		res.render("index", {
@@ -123,7 +125,9 @@ router.get("/dashboard", (req, res) => {
 router.get("/logout", (req, res) => {
 	res.clearCookie("jwt");
 	res.clearCookie("userData");
+
 	res.clearCookie("userDetails");
+
 	// res.send('User logout successfully');
 	res.redirect("/");
 });
