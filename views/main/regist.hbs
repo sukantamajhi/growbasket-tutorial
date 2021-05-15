@@ -1,5 +1,13 @@
 {{>header}}
 
+{{#if message}}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>{{message}}</strong>
+</div>
+
+{{/if}}
+
 <div class="section">
 
     <h2>Register Here</h2>
@@ -40,9 +48,5 @@
 
 </div>
 
-{{#if message}}
-<div class='error'>
-    {{message}}
-</div>
-{{/if}}
+
 {{>footer}}
