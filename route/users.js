@@ -1,38 +1,38 @@
-const express = require('express');
-const mySql = require('mysql');
-const session = require('express-session');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const con = require('../config/db');
-const dotenv = require('dotenv');
-const cookieParser = require('cookie-parser');
+const express = require("express");
+const mySql = require("mysql");
+const session = require("express-session");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const con = require("../config/db");
+const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 const router = express.Router();
 
 const app = express();
 
-router.get('/login', (req, res) => {
+router.get("/login", (req, res) => {
 	// console.log(req.headers.referer);
 	if (req.cookies.jwt === undefined) {
-		res.render('login', { title: 'Login', css: 'login' });
+		res.render("login", { title: "Login", css: "login" });
 	} else {
-		res.clearCookie('url');
-		res.redirect('back');
+		res.clearCookie("url");
+		res.redirect("back");
 	}
 });
 
-router.get('/signup', (req, res) => {
+router.get("/signup", (req, res) => {
 	if (req.cookies.jwt !== undefined) {
-		res.redirect('/dashboard');
+		res.redirect("/dashboard");
 	} else {
-		res.render('regist', { title: 'Signup', css: 'account' });
+		res.render("regist", { title: "Signup", css: "account" });
 	}
 });
 // router.get('/signup')
-router.post('/account', (req, res) => {
+router.post("/account", (req, res) => {
 	// console.log(req.body);
 	let cookie = req.cookies.jwt;
 	if (cookie !== undefined) {
-		res.redirect('/');
+		res.redirect("/");
 	} else {
 		const {
 			username,
@@ -52,10 +52,10 @@ router.post('/account', (req, res) => {
 
 		con.query(sql, (err, result) => {
 			if (result.length > 0) {
-				return res.render('regist', {
-					message: 'username or email is not available',
-					title: 'Signup',
-					css: 'account',
+				return res.render("regist", {
+					message: "username or email is not available",
+					title: "Signup",
+					css: "account",
 				});
 			} else {
 				if (
@@ -66,22 +66,22 @@ router.post('/account', (req, res) => {
 					!password ||
 					!cpassword
 				) {
-					return res.render('regist', {
-						message: 'Fields cannot be empty',
-						title: 'Signup',
-						css: 'account',
+					return res.render("regist", {
+						message: "Fields cannot be empty",
+						title: "Signup",
+						css: "account",
 					});
 				} else if (password !== cpassword) {
-					return res.render('regist', {
-						message: 'Password is not matching',
-						title: 'Signup',
-						css: 'account',
+					return res.render("regist", {
+						message: "Password is not matching",
+						title: "Signup",
+						css: "account",
 					});
-				} else if (password.length < 4) {
-					return res.render('regist', {
-						message: 'Password length cannot be less than 4',
-						title: 'Signup',
-						css: 'account',
+				} else if (password.length < 5) {
+					return res.render("regist", {
+						message: "Password length cannot be less than 4",
+						title: "Signup",
+						css: "account",
 					});
 				} else {
 					let sql =
@@ -97,26 +97,47 @@ router.post('/account', (req, res) => {
 						password +
 						"' )";
 
-					const id = con.query(sql, async function (err, result) {
+					const id = con.query(sql, function (err, result) {
 						if (err) throw err;
+
 						// console.log('Record inserted');
 					});
-					res.redirect('/users/login');
+					let userDetails = {
+						username: username,
+						name: firstName + lastName,
+						email: email,
+						password: password,
+					};
+
+					const cookieOptions = {
+						expires: new Date(
+							Date.now() +
+								process.env.COOKIE_EXPIRES_IN *
+									24 *
+									60 *
+									60 *
+									1000
+						),
+						httpOnly: true,
+					};
+
+					res.cookie("userDetails", userDetails, cookieOptions);
+					res.redirect("/users/login");
 				}
 			}
 		});
 	}
 });
 
-router.post('/login', (req, res, next) => {
+router.post("/login", (req, res, next) => {
 	// console.log(req.body);
 	const { username, password } = req.body;
 
 	if (!username || !password) {
-		return res.render('login', {
-			message: 'Field cannot be empty',
-			title: 'Login',
-			css: 'account',
+		return res.render("login", {
+			message: "Field cannot be empty",
+			title: "Login",
+			css: "account",
 		});
 	}
 
@@ -149,14 +170,14 @@ router.post('/login', (req, res, next) => {
 				),
 				httpOnly: true,
 			};
-			res.cookie('jwt', token, cookieOptions);
-			res.cookie('userData', users, cookieOptions);
-			res.status(200).redirect('/');
+			res.cookie("jwt", token, cookieOptions);
+			res.cookie("userData", users, cookieOptions);
+			res.status(200).redirect("/");
 		} else {
-			return res.render('login', {
-				message: 'Email or password is wrong',
-				title: 'Login',
-				css: 'account',
+			return res.render("login", {
+				message: "Email or password is wrong",
+				title: "Login",
+				css: "account",
 			});
 		}
 	});

@@ -1,7 +1,27 @@
 {{>header}}
+{{#if message}}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>{{message}}</strong>
+</div>
+
+{{/if}}
 <div class="section">
     <h2>Login Here</h2>
     <form action="/users/login" method="POST" class="form-label form-css-label">
+    {{#if userDetails}}
+        <fieldset>
+            <input id="username" name="username" type="text" autocomplete="off" value="{{userDetails.username}}" autofocus required />
+            <label for="username">Username</label>
+        </fieldset>
+        <fieldset>
+            <input id="password" name="password" type="password" value="{{userDetails.password}}" autocomplete="on" autofocus required />
+            <label for="password">Password</label>
+        </fieldset>
+        <div class="showmore">
+            <button id="login" type="submit" onclick="goBack()">SUBMIT</button>
+        </div>
+        {{else}}
         <fieldset>
             <input id="username" name="username" type="text" autocomplete="off" autofocus required />
             <label for="username">Username</label>
@@ -13,18 +33,14 @@
         <div class="showmore">
             <button id="login" type="submit" onclick="goBack()">SUBMIT</button>
         </div>
+    {{/if}}
+
 
     </form>
     <a href='/users/signup'>Don't have an account? Click Here</a>
 
 </div>
-<div class='err'>
-    {{#if message}}
-    <div class="error">
-        {{message}}
-    </div>
-    {{/if}}
-</div>
+
 
 
 
