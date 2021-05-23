@@ -7,9 +7,7 @@ const { getMaxListeners } = require("../config/db");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-
 	let sql = "select * from products limit 0,8";
-
 
 	pool.query(sql, (err, result) => {
 		res.render("index", {
@@ -193,7 +191,10 @@ router.get("/search", (req, res) => {
 });
 
 router.get("/wishlist", (req, res) => {
-	let sql = "select * from wishlist";
+	let sql =
+		"select * from wishlist where username = '" +
+		req.cookies.userData.name +
+		"'";
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
 		res.render("wishlist", {
