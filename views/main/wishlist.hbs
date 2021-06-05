@@ -2,17 +2,35 @@
 <div class='msg'>
 {{msg}}
 </div>
+<div class="row">
+
 {{# each result}}
-<div class='cards'>
-    <div class='card'>
-        <img src='{{product_image}}' alt='' id="pimage" />
-        <h2 id="pname"> <a href='/product/{{id}}/{{product_name}}'>{{product_name}}</a></h2>
-        <p id="pprice">{{price}}</p>
-        <button id="redirect"><a href='{{redirect_link}}' target='_blank'>Watch now</a></button>
-        <button id="ls" onclick="cart()">Add to Cart</button>
-        <button id='wishlist'> <a href='/product/delete/{{id}}/{{product_name}}'>Delete</a></button>
-    </div>
-</div>
+    <a href='{{redirect_link}}' target="_blank">
+        <div class="col-4">
+            <div class="products">
+        <img src="{{product_image}}" alt="Product1" />
+            <div class="product_details">
+            <h2>
+                {{product_name}}
+            </h2>
+            <p>
+                MRP: Rs <strong>{{price}}</strong> (Inclusive of all taxes)
+            </p>
+            </div>
+
+            </div>
+            <div class="buttons">
+<div id="wish">
+               <a href="{{redirect_link}}" target="_blank"> <button id="buy" class="btn">Buy Now</button></a>
+            </div>
+
+        <a href='/product/delete/{{id}}/{{product_name}}'><button id='wishlist' class="btn"> Delete</button></a>
+            </div>
+
+
+        </div>
+    </a>
 {{/each}}
+</div>
 <script src='javascript/cart.js' defer></script>
 {{> footer}}

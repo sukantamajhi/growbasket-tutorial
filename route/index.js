@@ -180,11 +180,13 @@ router.get("/search", (req, res) => {
 				result: result,
 				msg: "Showing " + list + " items",
 				css: "product",
+				check: "Check All Products",
 			});
 		} else {
 			res.render("searchproductlist", {
 				msg: "Search item not found. ",
 				css: "product",
+				check: "Check All Products",
 			});
 		}
 	});
@@ -199,6 +201,7 @@ router.get("/wishlist", (req, res) => {
 		if (err) throw err;
 		res.render("wishlist", {
 			result: result,
+			css: "wishlist",
 		});
 	});
 });
