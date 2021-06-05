@@ -145,7 +145,7 @@ router.get("/addlist", (req, res) => {
 		if (err) throw err;
 		return res.render("userproduct", {
 			title: "my product",
-			css: "product",
+			css: "wishlist",
 			result,
 		});
 	});
