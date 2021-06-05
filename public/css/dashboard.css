@@ -1,0 +1,27 @@
+.buttons {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	text-decoration: none;
+}
+.button {
+	margin-top: 30px;
+	padding: 10px 0;
+	width: 12em;
+	/* height: 25%; */
+	background-color: #ff0707;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	outline: none;
+	border: 1px solid #ff0707;
+	border-radius: 5px;
+}
+a {
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+}
+.button:hover {
+	border: 1px solid black;
+}

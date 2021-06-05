@@ -114,6 +114,7 @@ router.get("/dashboard", (req, res) => {
 		res.render("dashboard", {
 			title: "Dashboard",
 			msg: "dashboard",
+			css: "dashboard",
 			name: cookie1.name,
 		});
 	} else {
@@ -144,7 +145,7 @@ router.get("/addlist", (req, res) => {
 		if (err) throw err;
 		return res.render("userproduct", {
 			title: "my product",
-			css: "product",
+			css: "wishlist",
 			result,
 		});
 	});
@@ -180,11 +181,13 @@ router.get("/search", (req, res) => {
 				result: result,
 				msg: "Showing " + list + " items",
 				css: "product",
+				check: "Check All Products",
 			});
 		} else {
 			res.render("searchproductlist", {
 				msg: "Search item not found. ",
 				css: "product",
+				check: "Check All Products",
 			});
 		}
 	});
@@ -199,6 +202,7 @@ router.get("/wishlist", (req, res) => {
 		if (err) throw err;
 		res.render("wishlist", {
 			result: result,
+			css: "wishlist",
 		});
 	});
 });
