@@ -288,6 +288,7 @@ a {
 h4 {
 	color: #d41d1d;
 	font-weight: normal;
+	padding: 10px 0;
 }
 .col-4 p {
 	font-size: 14px;
@@ -380,7 +381,7 @@ h4 {
 	z-index: 999;
 }
 .button {
-	margin-top: 30px;
+	margin: 30px;
 	padding: 10px 0;
 	width: 12em;
 	/* height: 25%; */

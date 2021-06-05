@@ -8,7 +8,7 @@
 	display: flex;
 	align-items: center;
 	position: relative;
-	top: 32px;
+	/* top: 32px; */
 	flex-wrap: wrap;
 	justify-content: space-around;
 	padding: 20px;
@@ -70,10 +70,10 @@
 	width: 100%;
 }
 .small-container {
-	max-width: 1080px;
+	width: 100%;
 	margin: auto;
-	padding-left: 25px;
-	padding-right: 25px;
+	/* padding-left: 25px;
+	padding-right: 25px; */
 }
 .col-4 {
 	text-align: center;
@@ -94,13 +94,12 @@ a {
 .title {
 	text-align: center;
 	color: #555;
-	margin: 0 auto 80px;
+	margin: 40px auto;
 	position: relative;
-	top: 90px;
 	line-break: 60px;
 }
 .title::after {
-	content: '';
+	content: "";
 	background: #ff523b;
 	width: 120px;
 	height: 5px;
@@ -129,7 +128,7 @@ h4 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 62px;
+	margin: 20px 0;
 }
 #show_more {
 	padding: 16px 30px;
@@ -150,13 +149,11 @@ h4 {
 
 /* ------------------about-us------------------ */
 .about_us {
-	padding-top: 100px;
 	position: relative;
-	top: -111px;
 }
 .about_us .col-3 {
 	text-align: center;
-	padding: 40px 20px;
+	padding: 75px 20px;
 	border-radius: 10px;
 	box-shadow: 0 0 20px 0px rgba(7, 7, 7, 0.39);
 	cursor: pointer;
@@ -172,4 +169,8 @@ h4 {
 }
 .fa fa-quote-left {
 	color: #ff523b;
+}
+.col-3 p {
+	color: #555;
+	line-height: 28px;
 }

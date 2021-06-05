@@ -8,10 +8,12 @@ Then follow this below steps.
 
 ```sh
 $ npm install
+$ npm install yarn(If you havn''t install yet)
+$ yarn
 ```
 
 ```sh
-$ npm start
+$ yarn start / node server.js
 # Or run with Nodemon
 $ npm run serve
 
