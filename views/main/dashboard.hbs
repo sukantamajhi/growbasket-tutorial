@@ -5,19 +5,27 @@
     <h1>Hi {{name}}, Welcome to your Dashboard</h1>
     {{/if}}
 </div>
-<div class='sell__product'>
-    <a href='/product/sell'>Sell your product</a>
+<div class="buttons">
+<a href='/product/sell'><div class='sell__product button'>
+    Sell your product
+</div></a>
+<a href='/addlist'><div class='addList button'>
+    Product Added
+</div></a>
+ <a href='/wishlist'>
+<div class='wishlist button'>
+   Wishlist
+</div></a>
+<a href='/coupons'>
+<div class='coupons button'>
+    coupons
 </div>
-<div class='addList'>
-    <a href='/addlist'>Product Added</a>
+</a>
+ <a href='/orders'>
+<div class='orders button'>
+   Your Orders
 </div>
-<div class='wishlist'>
-    <a href='/wishlist'>Wishlist</a>
+</a>
 </div>
-<div class='coupons'>
-    <a href='/coupons'>coupons</a>
-</div>
-<div class='orders'>
-    <a href='/orders'>Your Orders</a>
-</div>
+
 {{>footer}}

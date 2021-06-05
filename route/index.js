@@ -114,6 +114,7 @@ router.get("/dashboard", (req, res) => {
 		res.render("dashboard", {
 			title: "Dashboard",
 			msg: "dashboard",
+			css: "dashboard",
 			name: cookie1.name,
 		});
 	} else {
