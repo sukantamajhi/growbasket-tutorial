@@ -8,7 +8,7 @@ Then follow this below steps.
 
 ```sh
 $ npm install
-$ npm install yarn(If you havn''t install yet)
+$ npm install yarn(If you haven't install yet)
 $ yarn
 ```
 
