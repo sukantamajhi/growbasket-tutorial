@@ -19,5 +19,15 @@ $ npm run serve
 
 # Visit http://localhost:4000
 ```
+### .Env file configaration
 
-Change your database details
+Database_Name = test
+Database_User = root
+Database_Password =
+Database_Host = localhost
+JWT_TOKEN = mysupersecretpassword
+JWT_EXPIRES_IN = 90d
+COOKIE_EXPIRES_IN = 90
+Mail_Username= "Enter your own gmail id"
+Mail_Password= "Enter your own gmail password"
+
