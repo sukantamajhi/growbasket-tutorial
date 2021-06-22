@@ -60,7 +60,7 @@ router.post("/contactus", (req, res) => {
 		let mailOptions = {
 			from: "admin@growbasket.in",
 			to: email,
-			subject: "Thank you for contcting us",
+			subject: "Thank you for contacting us",
 			html:
 				"Hello " +
 				req.cookies.userData.name +
