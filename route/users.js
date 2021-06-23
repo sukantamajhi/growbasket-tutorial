@@ -7,11 +7,13 @@ const con = require("../config/db");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const router = express.Router();
+const url = require("url");
+const e = require("connect-flash");
+// const { url } = require("inspector");
 
 const app = express();
 
 router.get("/login", (req, res) => {
-	// console.log(req.headers.referer);
 	if (req.cookies.jwt === undefined) {
 		res.render("login", { title: "Login", css: "login" });
 	} else {
@@ -34,14 +36,8 @@ router.post("/account", (req, res) => {
 	if (cookie !== undefined) {
 		res.redirect("/");
 	} else {
-		const {
-			username,
-			firstName,
-			lastName,
-			email,
-			password,
-			cpassword,
-		} = req.body;
+		const { username, firstName, lastName, email, password, cpassword } =
+			req.body;
 
 		let sql =
 			"select * from user where username = '" +
@@ -102,11 +98,14 @@ router.post("/account", (req, res) => {
 
 						// console.log('Record inserted');
 					});
+					let queryString = url.parse(req.url, true);
+					console.log(url);
 					let userDetails = {
 						username: username,
 						name: firstName + lastName,
 						email: email,
 						password: password,
+						url: url,
 					};
 
 					const cookieOptions = {
@@ -172,7 +171,13 @@ router.post("/login", (req, res, next) => {
 			};
 			res.cookie("jwt", token, cookieOptions);
 			res.cookie("userData", users, cookieOptions);
-			res.status(200).redirect("/");
+			if (req.cookies.prev_url) {
+				res.clearCookie("prev_url");
+				res.status(200).redirect(`${req.cookies.prev_url}`);
+			} else {
+				res.status(200).redirect("/");
+			}
+			// res.status(200).redirect("/");
 		} else {
 			return res.render("login", {
 				message: "Email or password is wrong",

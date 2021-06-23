@@ -5,6 +5,7 @@ const { route } = require("./product");
 const mail = require("../config/mail");
 const { getMaxListeners } = require("../config/db");
 const router = express.Router();
+const url = require("url");
 
 router.get("/", (req, res) => {
 	let sql = "select * from products limit 0,8";
@@ -24,7 +25,7 @@ router.get("/product", (req, res) => {
 	pool.query("select * from products", (err, result) => {
 		if (err) throw err;
 		res.render("product", {
-			title: "products 🥝",
+			title: "products",
 			css: "product",
 			result: result,
 		});
@@ -34,12 +35,14 @@ router.get("/about", (req, res) => {
 	res.render("about", { title: "About Us", css: "about" });
 });
 router.get("/contact", (req, res) => {
+	let queryString = url.parse(req.url, true);
 	if (req.cookies.jwt) {
 		res.render("contact", {
 			title: "Contact Us",
 			css: "contact",
 		});
 	} else {
+		res.cookie("prev_url", "/contact");
 		res.redirect("/users/login");
 	}
 
@@ -61,11 +64,9 @@ router.post("/contactus", (req, res) => {
 			from: "admin@growbasket.in",
 			to: email,
 			subject: "Thank you for contacting us",
-			html:
-				"Hello " +
-				req.cookies.userData.name +
-				". Welcome to GrowBasket. Thank you for contacting us. We are trying to figure out what We can do",
+			html: `Hello ${req.cookies.userData.name}. Welcome to GrowBasket. Thank you for contacting us. We are trying to figure out what We can do`,
 		};
+		console.log(mailOptions);
 		let toMe = {
 			from: "admin@growbasket.in",
 			to: "majhisukanta48@gmail.com",
@@ -79,6 +80,7 @@ router.post("/contactus", (req, res) => {
 				message +
 				"</h2>",
 		};
+		console.log(toMe);
 		mail.sendMail(mailOptions, (err, info) => {
 			if (err) throw err;
 			console.log("Email sent to user");
@@ -194,17 +196,22 @@ router.get("/search", (req, res) => {
 });
 
 router.get("/wishlist", (req, res) => {
-	let sql =
-		"select * from wishlist where username = '" +
-		req.cookies.userData.name +
-		"'";
-	pool.query(sql, (err, result) => {
-		if (err) throw err;
-		res.render("wishlist", {
-			result: result,
-			css: "wishlist",
+	if (req.cookies.userData) {
+		let sql =
+			"select * from wishlist where username = '" +
+			req.cookies.userData.name +
+			"'";
+		pool.query(sql, (err, result) => {
+			if (err) throw err;
+			res.render("wishlist", {
+				result: result,
+				css: "wishlist",
+			});
 		});
-	});
+	} else {
+		res.cookie('prev_url', "/wishlist")
+		res.redirect("/users/login")
+	}
 });
 
 module.exports = router;

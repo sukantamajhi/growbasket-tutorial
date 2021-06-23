@@ -1,40 +1,43 @@
-const { json } = require('body-parser');
-const express = require('express');
-const mySql = require('mysql');
-const con = require('../config/db');
+const { json } = require("body-parser");
+const express = require("express");
+const mySql = require("mysql");
+const con = require("../config/db");
+const url = require("url");
 const router = express.Router();
 
 app = express();
 
 con.connect((err) => {});
 
-router.get('/sell', (req, res) => {
+router.get("/sell", (req, res) => {
+	let queryString = url.parse(req.url, true);
+	res.cookie("prev_url", "/product/sell");
 	let cookie = req.cookies.jwt;
 	let cookie1 = req.cookies.userData;
 	if (cookie !== undefined && cookie1 !== undefined) {
 		let uname = cookie1.name;
 
-		res.render('product_entry', {
-			title: 'ProductEntry Us',
-			css: 'sell',
+		res.render("product_entry", {
+			title: "ProductEntry Us",
+			css: "sell",
 			uname: uname,
 		});
 	} else {
-		res.redirect('/users/login');
+		res.redirect("/users/login");
 		// res.redirect('back');
 	}
 });
-router.post('/sell', (req, res) => {
+router.post("/sell", (req, res) => {
 	username = req.cookies.userData.name;
 	const { product__name, imgsrc, price, redirect__link } = req.body;
 
 	if (
-		username === '' ||
-		product__name === '' ||
-		imgsrc === '' ||
-		price === '' ||
+		username === "" ||
+		product__name === "" ||
+		imgsrc === "" ||
+		price === "" ||
 		isNaN(price) ||
-		redirect__link === ''
+		redirect__link === ""
 	) {
 	} else {
 		let sql =
@@ -55,10 +58,10 @@ router.post('/sell', (req, res) => {
 		});
 	}
 
-	res.redirect('/product');
+	res.redirect("/product");
 });
 
-router.post('/:id/update', (req, res) => {
+router.post("/:id/update", (req, res) => {
 	const { imgsrc, product__name, price, redirect__link } = req.body;
 	let sql =
 		"update products set product_link = '" +
@@ -74,10 +77,10 @@ router.post('/:id/update', (req, res) => {
 		"'";
 	con.query(sql, (err, result) => {
 		if (err) throw err;
-		res.redirect('/addlist');
+		res.redirect("/addlist");
 	});
 });
-router.get('/:id/:product_name', (req, res) => {
+router.get("/:id/:product_name", (req, res) => {
 	// let name = req.params.product__name;
 	let sql =
 		"select * from products where id = '" +
@@ -88,13 +91,13 @@ router.get('/:id/:product_name', (req, res) => {
 	con.query(sql, (err, result) => {
 		if (err) throw err;
 
-		res.render('product', {
+		res.render("product", {
 			// title: name,
 			result: result,
 		});
 	});
 });
-router.get('/wishlist/:id/:product_name', (req, res) => {
+router.get("/wishlist/:id/:product_name", (req, res) => {
 	let sql =
 		"select * from wishlist where id = '" +
 		req.params.id +
@@ -104,7 +107,7 @@ router.get('/wishlist/:id/:product_name', (req, res) => {
 	con.query(sql, (err, result) => {
 		if (err) throw err;
 		if (result.length > 0) {
-			res.redirect('/wishlist');
+			res.redirect("/wishlist");
 		} else if (req.cookies.jwt && req.cookies.userData) {
 			con.query(
 				'select * from products where id="' +
@@ -131,16 +134,16 @@ router.get('/wishlist/:id/:product_name', (req, res) => {
 						"')";
 					con.query(wishlist, (err, rows) => {
 						if (err) throw err;
-						res.redirect('/wishlist');
+						res.redirect("/wishlist");
 					});
 				}
 			);
 		} else {
-			res.status(307).redirect('/');
+			res.status(307).redirect("/");
 		}
 	});
 });
-router.get('/delete/:id/:product_name', (req, res) => {
+router.get("/delete/:id/:product_name", (req, res) => {
 	let sql =
 		'DELETE FROM `wishlist` WHERE id = "' +
 		req.params.id +
@@ -149,7 +152,7 @@ router.get('/delete/:id/:product_name', (req, res) => {
 		'"';
 	con.query(sql, (err, result) => {
 		if (err) throw err;
-		res.redirect('/wishlist');
+		res.redirect("/wishlist");
 	});
 });
 module.exports = router;
