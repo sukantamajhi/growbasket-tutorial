@@ -35,7 +35,6 @@ router.get("/about", (req, res) => {
 	res.render("about", { title: "About Us", css: "about" });
 });
 router.get("/contact", (req, res) => {
-	let queryString = url.parse(req.url, true);
 	if (req.cookies.jwt) {
 		res.render("contact", {
 			title: "Contact Us",
@@ -209,8 +208,8 @@ router.get("/wishlist", (req, res) => {
 			});
 		});
 	} else {
-		res.cookie('prev_url', "/wishlist")
-		res.redirect("/users/login")
+		res.cookie("prev_url", "/wishlist");
+		res.redirect("/users/login");
 	}
 });
 

@@ -10,7 +10,6 @@ app = express();
 con.connect((err) => {});
 
 router.get("/sell", (req, res) => {
-	let queryString = url.parse(req.url, true);
 	res.cookie("prev_url", "/product/sell");
 	let cookie = req.cookies.jwt;
 	let cookie1 = req.cookies.userData;

@@ -98,14 +98,12 @@ router.post("/account", (req, res) => {
 
 						// console.log('Record inserted');
 					});
-					let queryString = url.parse(req.url, true);
-					console.log(url);
+
 					let userDetails = {
 						username: username,
 						name: firstName + lastName,
 						email: email,
 						password: password,
-						url: url,
 					};
 
 					const cookieOptions = {
