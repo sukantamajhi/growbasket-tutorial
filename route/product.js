@@ -9,23 +9,24 @@ app = express();
 
 con.connect((err) => {});
 
-router.get("/sell", (req, res) => {
-	res.cookie("prev_url", "/product/sell");
-	let cookie = req.cookies.jwt;
-	let cookie1 = req.cookies.userData;
-	if (cookie !== undefined && cookie1 !== undefined) {
-		let uname = cookie1.name;
+// router.get("/sell", (req, res) => {
+// 	res.cookie("prev_url", "/product/sell");
+// 	let cookie = req.cookies.jwt;
+// 	let cookie1 = req.cookies.userData;
+// 	if (cookie !== undefined && cookie1 !== undefined) {
+// 		let uname = cookie1.name;
 
-		res.render("product_entry", {
-			title: "ProductEntry Us",
-			css: "sell",
-			uname: uname,
-		});
-	} else {
-		res.redirect("/users/login");
-		// res.redirect('back');
-	}
-});
+// 		res.render("product_entry", {
+// 			title: "ProductEntry Us",
+// 			css: "sell",
+// 			uname: uname,
+// 		});
+// 	} else {
+// 		res.cookie("prev_url", "/sell");
+// 		res.redirect("/users/login");
+// 		// res.redirect('back');
+// 	}
+// });
 router.post("/sell", (req, res) => {
 	username = req.cookies.userData.name;
 	const { product__name, imgsrc, price, redirect__link } = req.body;

@@ -151,6 +151,26 @@ router.get("/addlist", (req, res) => {
 		});
 	});
 });
+
+router.get("/sell", (req, res) => {
+	res.cookie("prev_url", "/sell");
+	let cookie = req.cookies.jwt;
+	let cookie1 = req.cookies.userData;
+	if (cookie !== undefined && cookie1 !== undefined) {
+		let uname = cookie1.name;
+
+		res.render("product_entry", {
+			title: "ProductEntry Us",
+			css: "sell",
+			uname: uname,
+		});
+	} else {
+		res.cookie("prev_url", "/sell");
+		res.redirect("/users/login");
+		// res.redirect('back');
+	}
+});
+
 router.get("/:id/edit", (req, res) => {
 	pool.query(
 		"select * from products where id = '" + req.params.id + "'",
