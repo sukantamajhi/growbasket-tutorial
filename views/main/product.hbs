@@ -1,15 +1,15 @@
 {{> header}}
 
-{{#if msg}}
-<div class='msg'>
-    {{msg}}
-</div>
-{{/if}}
-
-
 {{> slideshowcontainer}}
 <h2 class="title">
     Products available in our store
 </h2>
+
+{{#if msg}}
+    <div class="alert">
+        {{msg}}
+    </div>
+{{/if}}
+
 {{> products}}
 {{> footer}}

@@ -405,3 +405,13 @@ h4 {
 	justify-content: center;
 	align-items: center;
 }
+.alert {
+	display: flex;
+	justify-content: center;
+	/* align-items: flex-start; */
+	margin-top: 30px;
+	width: 100%;
+	color: red;
+	font-size: 30px;
+	opacity: 0.5;
+}

@@ -24,11 +24,22 @@ router.get("/index.html", (req, res) => {
 router.get("/product", (req, res) => {
 	pool.query("select * from products", (err, result) => {
 		if (err) throw err;
-		res.render("product", {
-			title: "products",
-			css: "product",
-			result: result,
-		});
+		// result = []
+		if (result.length > 0) {
+			res.render("product", {
+				title: "products",
+				css: "product",
+				result: result,
+			});
+		} else {
+			res.render("product", {
+				title: "products",
+				css: "product",
+				msg: "No Data Found",
+				result: result,
+			});
+		}
+
 	});
 });
 router.get("/about", (req, res) => {
@@ -42,7 +53,7 @@ router.get("/contact", (req, res) => {
 		});
 	} else {
 		res.cookie("prev_url", "/contact");
-		res.redirect("/users/login");
+		res.redirect("/login");
 	}
 
 	// res.cookie;
@@ -65,7 +76,6 @@ router.post("/contactus", (req, res) => {
 			subject: "Thank you for contacting us",
 			html: `Hello ${req.cookies.userData.name}. Welcome to GrowBasket. Thank you for contacting us. We are trying to figure out what We can do`,
 		};
-		console.log(mailOptions);
 		let toMe = {
 			from: "admin@growbasket.in",
 			to: "majhisukanta48@gmail.com",
@@ -79,14 +89,11 @@ router.post("/contactus", (req, res) => {
 				message +
 				"</h2>",
 		};
-		console.log(toMe);
 		mail.sendMail(mailOptions, (err, info) => {
 			if (err) throw err;
-			console.log("Email sent to user");
 		});
 		mail.sendMail(toMe, (err, info) => {
 			if (err) throw err;
-			console.log("Message sent to admin");
 		});
 		res.render("contact", {
 			title: "Contact Us",
@@ -105,7 +112,7 @@ router.get("/account", (req, res) => {
 	if (cookie !== undefined) {
 		res.redirect("/dashboard");
 	} else {
-		res.redirect("/users/login");
+		res.redirect("/login");
 	}
 });
 router.get("/dashboard", (req, res) => {
@@ -131,12 +138,12 @@ router.get("/logout", (req, res) => {
 	// res.send('User logout successfully');
 	res.redirect("/");
 });
-router.get("/login", (req, res) => {
-	res.redirect("/users/login");
-});
-router.get("/signup", (req, res) => {
-	res.redirect("/users/signup");
-});
+// router.get("/login", (req, res) => {
+// 	res.redirect("/users/login");
+// });
+// router.get("/signup", (req, res) => {
+// 	res.redirect("/users/signup");
+// });
 router.get("/addlist", (req, res) => {
 	let sql =
 		"select * from products where username = '" +
@@ -144,16 +151,26 @@ router.get("/addlist", (req, res) => {
 		"'";
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
-		return res.render("userproduct", {
-			title: "my product",
-			css: "wishlist",
-			result,
-		});
+		result=[]
+		if (result.length > 0) {
+			res.render("userproduct", {
+				title: "my product",
+				css: "wishlist",
+				result,
+			});
+		} else {
+			res.render("userproduct", {
+				title: "my product",
+				css: "wishlist",
+				msg: "You have not added any product yet",
+				result,
+			});
+		}
+
 	});
 });
 
 router.get("/sell", (req, res) => {
-	res.cookie("prev_url", "/sell");
 	let cookie = req.cookies.jwt;
 	let cookie1 = req.cookies.userData;
 	if (cookie !== undefined && cookie1 !== undefined) {
@@ -166,7 +183,7 @@ router.get("/sell", (req, res) => {
 		});
 	} else {
 		res.cookie("prev_url", "/sell");
-		res.redirect("/users/login");
+		res.redirect("/login");
 		// res.redirect('back');
 	}
 });
@@ -222,15 +239,27 @@ router.get("/wishlist", (req, res) => {
 			"'";
 		pool.query(sql, (err, result) => {
 			if (err) throw err;
-			res.render("wishlist", {
-				result: result,
-				css: "wishlist",
-			});
+			if (result.length > 0) {
+				res.render("wishlist", {
+					result: result,
+					css: "wishlist",
+				});
+			} else {
+				res.render("wishlist", {
+					// result: result,
+					msg: "No Data Found",
+					css: "wishlist",
+				});
+			}
+
 		});
 	} else {
 		res.cookie("prev_url", "/wishlist");
-		res.redirect("/users/login");
+		res.redirect("/login");
 	}
+});
+router.get("/privacy", (req, res) => {
+	res.render("privacy", { title: "privacy" });
 });
 
 module.exports = router;

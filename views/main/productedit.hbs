@@ -5,7 +5,7 @@
 </div>
     {{#each result}}
 
-<form name="product_update" action='/product/{{id}}/update' class="entry" method='post' onsubmit="return check()">
+<form name="product_update" action='/{{id}}/update' class="entry" method='post' onsubmit="return check()">
     <div class='imgsrc'>
         <label for='imgsrc'>Image Source</label>
         <input type='text' class="imgsrc" name="imgsrc" id="imgsrc" value="{{product_link}}" required />

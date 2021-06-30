@@ -1,7 +1,4 @@
 {{> header}}
-<div class='msg'>
-{{msg}}
-</div>
 <div class="row">
 
 {{# each result}}
@@ -24,13 +21,18 @@
                <a href="{{redirect_link}}" target="_blank"> <button id="buy" class="btn">Buy Now</button></a>
             </div>
 
-        <a href='/product/delete/{{id}}/{{product_name}}'><button id='wishlist' class="btn"> Delete</button></a>
+        <a href='/delete/{{id}}/{{product_name}}'><button id='wishlist' class="btn"> Delete</button></a>
             </div>
 
 
         </div>
     </a>
 {{/each}}
+{{#if msg}}
+<div class="alert">
+  {{msg}}
 </div>
-<script src='javascript/cart.js' defer></script>
+  {{/if}}
+</div>
+
 {{> footer}}

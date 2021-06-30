@@ -12,7 +12,7 @@ const flash = require("connect-flash");
 const port = process.env.PORT || 3000;
 
 const app = express();
-dotenv.config("../.env");
+dotenv.config(".env");
 
 app.use(express.static(path.join(__dirname + "/public")));
 const partialPath = path.join(__dirname + "./views/Partials");
@@ -57,8 +57,8 @@ app.use(function (req, res, next) {
 	next();
 });
 app.use("/", require("./route/index"));
-app.use("/users", require("./route/users"));
-app.use("/product", require("./route/product"));
+app.use("/", require("./route/users"));
+app.use("/", require("./route/product"));
 
 app.get("*", function (req, res) {
 	res.status(404).redirect("404.html");

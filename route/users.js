@@ -119,7 +119,7 @@ router.post("/account", (req, res) => {
 					};
 
 					res.cookie("userDetails", userDetails, cookieOptions);
-					res.redirect("/users/login");
+					res.redirect("/login");
 				}
 			}
 		});
