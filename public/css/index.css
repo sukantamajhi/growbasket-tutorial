@@ -137,6 +137,8 @@ h4 {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 20px;
 	outline: none;
+	border: none;
+	border-color: transparent;
 	background-color: #f00000;
 	color: #fff;
 	transition: 0.5s;
