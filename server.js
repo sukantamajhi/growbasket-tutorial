@@ -10,8 +10,6 @@ const cookieParser = require("cookie-parser");
 const axios = require("axios").default;
 const flash = require("connect-flash");
 const port = process.env.PORT || 3000;
-const compression = require("compression");
-const helmet = require("helmet");
 
 const app = express();
 dotenv.config(".env");
@@ -34,8 +32,6 @@ app.use(
 );
 app.use(cookieParser());
 app.use(flash());
-app.use(compression());
-app.use(helmet());
 
 // Error middleware
 // error handler
