@@ -67,6 +67,12 @@ router.post("/account", (req, res) => {
 						title: "Signup",
 						css: "account",
 					});
+				} else if (username.length < 6) {
+					return res.render("regist", {
+						message: "Username cannot be less than 6",
+						title: "Signup",
+						css: "account",
+					});
 				} else if (password !== cpassword) {
 					return res.render("regist", {
 						message: "Password is not matching",
@@ -76,6 +82,12 @@ router.post("/account", (req, res) => {
 				} else if (password.length < 5) {
 					return res.render("regist", {
 						message: "Password length cannot be less than 4",
+						title: "Signup",
+						css: "account",
+					});
+				} else if (password.length > 8) {
+					return res.render("regist", {
+						message: "Password length cannot be more than 8",
 						title: "Signup",
 						css: "account",
 					});

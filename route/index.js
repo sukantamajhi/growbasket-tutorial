@@ -237,6 +237,7 @@ router.get("/wishlist", (req, res) => {
 			"select * from wishlist where username = '" +
 			req.cookies.userData.name +
 			"'";
+		console.log(sql)
 		pool.query(sql, (err, result) => {
 			if (err) throw err;
 			if (result.length > 0) {
@@ -246,12 +247,10 @@ router.get("/wishlist", (req, res) => {
 				});
 			} else {
 				res.render("wishlist", {
-					// result: result,
-					msg: "No Data Found",
 					css: "wishlist",
+					msg:"No Data Found"
 				});
 			}
-
 		});
 	} else {
 		res.cookie("prev_url", "/wishlist");

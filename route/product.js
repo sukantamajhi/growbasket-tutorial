@@ -99,13 +99,17 @@ router.get("/:id/:product_name", (req, res) => {
 });
 router.get("/wishlist/:id/:product_name", (req, res) => {
 	let sql =
-		"select * from wishlist where id = '" +
+		"select * from wishlist where username='" +
+		req.cookies.userData.name +
+		"' and id = '" +
 		req.params.id +
-		"' and product_name='" +
+		"'and product_name='" +
 		req.params.product_name +
 		"'";
+	console.log(sql);
 	con.query(sql, (err, result) => {
 		if (err) throw err;
+		console.log(result, "resu");
 		if (result.length > 0) {
 			res.redirect("/wishlist");
 		} else if (req.cookies.jwt && req.cookies.userData) {
