@@ -22,13 +22,14 @@ $ npm run serve
 ### .Env file configaration
 
 ```sh
-Database_Name = test
-Database_User = root
+Database_Name =
+Database_User =
 Database_Password =
-Database_Host = localhost
-JWT_TOKEN = mysupersecretpassword
-JWT_EXPIRES_IN = 90d
-COOKIE_EXPIRES_IN = 90
-Mail_Username= "Enter your own gmail id"
-Mail_Password= "Enter your own gmail password"
+Database_Host =
+JWT_TOKEN =
+JWT_EXPIRES_IN =
+COOKIE_EXPIRES_IN =
+PORT=
+Mail_Username=
+Mail_Password=
 ```
