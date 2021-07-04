@@ -6,31 +6,31 @@
 <form name="product_sell" action='/sell' method='post' onsubmit="return check()" class="entry" >
 
     <div class='username'>
-        <label for='username'>Username</label>
+        <label for='username'>Username</label> <br>
         {{#if uname}}
         <input type='text' name="username" id="username" class="username" value="{{uname}}" disabled/>
         {{/if}}
     </div>
 
     <div class='imgsrc'>
-        <label for='imgsrc'>Image Source</label>
-        <input type='text' class="imgsrc" name="imgsrc" id="imgsrc" required />
+        <label for='imgsrc'>Image Source</label> <br>
+        <input type='text' class="imgsrc" name="imgsrc" id="imgsrc" placeholder="Enter image source" required />
     </div>
 
     <div class='pname'>
-        <label for='product__name'>Product Name</label>
-        <input type='text' class="product__name" name="product__name" id="product__name" required />
+        <label for='product__name'>Product Name</label> <br>
+        <input type='text' class="product__name" name="product__name" placeholder="Enter product name" id="product__name" required />
     </div>
 
     <div class='price'>
-        <label for='price'>Price</label>
-        <input type='text' class="price" name="price" id="price" required />
+        <label for='price'>Price</label> <br>
+        <input type='text' class="price" name="price" placeholder="Enter product price" id="price" required />
         <div id='price__error'></div>
     </div>
 
     <div class='red_link'>
-        <label for='redirect__link'>Redirect Link</label>
-        <input type='url' class="redirect__link" name="redirect__link" id="redirect__link" required />
+        <label for='redirect__link'>Redirect Link</label> <br>
+        <input type='url' class="redirect__link" placeholder="Enter actual product's url" name="redirect__link" id="redirect__link" required />
     </div>
 
     <button type='submit'>Submit</button>

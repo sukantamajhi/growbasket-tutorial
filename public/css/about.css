@@ -7,7 +7,7 @@
 	height: 8em;
 	display: flex;
 	text-align: center;
-	background: url(https://growbasket.netlify.app/image/grocery.jpg);
+	background: url(../images/grocery.jpg);
 	color: white;
 	font-size: 30px;
 	flex-direction: column;
