@@ -14,8 +14,6 @@ const port = process.env.PORT || 3000;
 const app = express();
 dotenv.config(".env");
 
-process.env.NODE_ENV = "production";
-
 app.use(express.static(path.join(__dirname + "/public")));
 const partialPath = path.join(__dirname + "./views/Partials");
 
