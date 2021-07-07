@@ -31,7 +31,6 @@ router.get("/signup", (req, res) => {
 });
 // router.get('/signup')
 router.post("/account", (req, res) => {
-	// console.log(req.body);
 	let cookie = req.cookies.jwt;
 	const saltRounds = 10;
 	if (cookie !== undefined) {
@@ -110,7 +109,6 @@ router.post("/account", (req, res) => {
 						const id = con.query(sql, function (err, result) {
 							if (err) throw err;
 
-							// console.log('Record inserted');
 						});
 
 						let userDetails = {
@@ -142,7 +140,6 @@ router.post("/account", (req, res) => {
 });
 
 router.post("/login", (req, res, next) => {
-	// console.log(req.body);
 	const { username, password } = req.body;
 
 	if (!username || !password) {
@@ -157,7 +154,6 @@ router.post("/login", (req, res, next) => {
 		"select * from user where username = '" + escape(username) + "'  ";
 	con.query(sql, (err, result) => {
 		let newPassword = result[0].password;
-		console.log(newPassword)
 		bcrypt.compare(password, newPassword, (err, hashPassword) => {
 			if (err) throw err;
 			if (hashPassword === true) {
