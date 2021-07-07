@@ -2,7 +2,7 @@ const express = require("express");
 const mySql = require("mysql");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const con = require("../config/db");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
@@ -33,6 +33,7 @@ router.get("/signup", (req, res) => {
 router.post("/account", (req, res) => {
 	// console.log(req.body);
 	let cookie = req.cookies.jwt;
+	const saltRounds = 10;
 	if (cookie !== undefined) {
 		res.redirect("/");
 	} else {
@@ -92,46 +93,48 @@ router.post("/account", (req, res) => {
 						css: "account",
 					});
 				} else {
-					let sql =
-						"insert into user values ( NULL,'" +
-						username +
-						"',  '" +
-						firstName +
-						"', '" +
-						lastName +
-						"', '" +
-						email +
-						"','" +
-						password +
-						"' )";
+					bcrypt.hash(password, saltRounds, function (err, hash) {
+						let sql =
+							"insert into user values ( NULL,'" +
+							username +
+							"',  '" +
+							firstName +
+							"', '" +
+							lastName +
+							"', '" +
+							email +
+							"','" +
+							hash +
+							"' )";
 
-					const id = con.query(sql, function (err, result) {
-						if (err) throw err;
+						const id = con.query(sql, function (err, result) {
+							if (err) throw err;
 
-						// console.log('Record inserted');
+							// console.log('Record inserted');
+						});
+
+						let userDetails = {
+							username: username,
+							name: firstName + lastName,
+							email: email,
+							password: password,
+						};
+
+						const cookieOptions = {
+							expires: new Date(
+								Date.now() +
+									process.env.COOKIE_EXPIRES_IN *
+										24 *
+										60 *
+										60 *
+										1000
+							),
+							httpOnly: true,
+						};
+
+						res.cookie("userDetails", userDetails, cookieOptions);
+						res.redirect("/login");
 					});
-
-					let userDetails = {
-						username: username,
-						name: firstName + lastName,
-						email: email,
-						password: password,
-					};
-
-					const cookieOptions = {
-						expires: new Date(
-							Date.now() +
-								process.env.COOKIE_EXPIRES_IN *
-									24 *
-									60 *
-									60 *
-									1000
-						),
-						httpOnly: true,
-					};
-
-					res.cookie("userDetails", userDetails, cookieOptions);
-					res.redirect("/login");
 				}
 			}
 		});
@@ -151,50 +154,49 @@ router.post("/login", (req, res, next) => {
 	}
 
 	let sql =
-		"select * from user where username = '" +
-		escape(username) +
-		"' and password = '" +
-		escape(password) +
-		"' ;";
-	con.query(sql, function (err, result) {
-		// console.log(result);
-		if (result.length > 0) {
-			// console.log(typeof req.body.username);
-			const id = result[0].id;
-			// const username = result[0].username;
+		"select * from user where username = '" + escape(username) + "'  ";
+	con.query(sql, (err, result) => {
+		let newPassword = result[0].password;
+		console.log(newPassword)
+		bcrypt.compare(password, newPassword, (err, hashPassword) => {
+			if (err) throw err;
+			if (hashPassword === true) {
+				const id = result[0].id;
+				// const username = result[0].username;
 
-			let users = {
-				id: id,
-				name: req.body.username,
-			};
+				let users = {
+					id: id,
+					name: req.body.username,
+				};
 
-			const token = jwt.sign({ id }, process.env.JWT_TOKEN, {
-				expiresIn: process.env.JWT_EXPIRES_IN,
-			});
+				const token = jwt.sign({ id }, process.env.JWT_TOKEN, {
+					expiresIn: process.env.JWT_EXPIRES_IN,
+				});
 
-			const cookieOptions = {
-				expires: new Date(
-					Date.now() +
-						process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-				),
-				httpOnly: true,
-			};
-			res.cookie("jwt", token, cookieOptions);
-			res.cookie("userData", users, cookieOptions);
-			if (req.cookies.prev_url) {
-				res.clearCookie("prev_url");
-				res.status(200).redirect(`${req.cookies.prev_url}`);
+				const cookieOptions = {
+					expires: new Date(
+						Date.now() +
+							process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+					),
+					httpOnly: true,
+				};
+				res.cookie("jwt", token, cookieOptions);
+				res.cookie("userData", users, cookieOptions);
+				if (req.cookies.prev_url) {
+					res.clearCookie("prev_url");
+					res.status(200).redirect(`${req.cookies.prev_url}`);
+				} else {
+					res.status(200).redirect("/");
+				}
+				// res.status(200).redirect("/");
 			} else {
-				res.status(200).redirect("/");
+				return res.render("login", {
+					message: "Email or password is wrong",
+					title: "Login",
+					css: "account",
+				});
 			}
-			// res.status(200).redirect("/");
-		} else {
-			return res.render("login", {
-				message: "Email or password is wrong",
-				title: "Login",
-				css: "account",
-			});
-		}
+		});
 	});
 });
 
