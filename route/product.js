@@ -106,10 +106,8 @@ router.get("/wishlist/:id/:product_name", (req, res) => {
 		"'and product_name='" +
 		req.params.product_name +
 		"'";
-	console.log(sql);
 	con.query(sql, (err, result) => {
 		if (err) throw err;
-		console.log(result, "resu");
 		if (result.length > 0) {
 			res.redirect("/wishlist");
 		} else if (req.cookies.jwt && req.cookies.userData) {

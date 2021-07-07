@@ -236,7 +236,6 @@ router.get("/wishlist", (req, res) => {
 			"select * from wishlist where username = '" +
 			req.cookies.userData.name +
 			"'";
-		console.log(sql)
 		pool.query(sql, (err, result) => {
 			if (err) throw err;
 			if (result.length > 0) {
