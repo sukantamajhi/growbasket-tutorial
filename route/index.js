@@ -151,7 +151,6 @@ router.get("/addlist", (req, res) => {
 		"'";
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
-		result=[]
 		if (result.length > 0) {
 			res.render("userproduct", {
 				title: "my product",
