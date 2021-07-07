@@ -37,7 +37,12 @@ h2 {
 	padding: 10px 15px;
 	margin: 45px 0;
 	font-family: "Inter", sans-serif;
+	background-color: #ff0707;
 	font-size: 18px;
+	color: #fff;
+	border: 1px solid;
+	outline: none;
+	border-radius: 5px;
 }
 /* Chrome/Opera/Safari */
 .entry input::-webkit-input-placeholder {
