@@ -22,8 +22,9 @@
 	text-decoration: none;
 }
 img {
-	width: 30%;
-	height: auto;
+	width: auto;
+	height: 13em;
+	object-fit: cover;
 }
 .product_details {
 	margin-left: 10%;
