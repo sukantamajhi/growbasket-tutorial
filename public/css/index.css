@@ -201,3 +201,12 @@ h4 {
 	min-width: 200px;
 	margin-bottom: 30px;
 }
+.rowproductlist{
+	display: flex;
+	align-items: center;
+	position: relative;
+	/* top: 32px; */
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding: 20px;
+}
