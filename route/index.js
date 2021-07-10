@@ -39,7 +39,6 @@ router.get("/product", (req, res) => {
 				result: result,
 			});
 		}
-
 	});
 });
 router.get("/about", (req, res) => {
@@ -165,7 +164,6 @@ router.get("/addlist", (req, res) => {
 				result,
 			});
 		}
-
 	});
 });
 
@@ -246,7 +244,7 @@ router.get("/wishlist", (req, res) => {
 			} else {
 				res.render("wishlist", {
 					css: "wishlist",
-					msg:"No Data Found"
+					msg: "No Data Found",
 				});
 			}
 		});
@@ -257,6 +255,57 @@ router.get("/wishlist", (req, res) => {
 });
 router.get("/privacy", (req, res) => {
 	res.render("privacy", { title: "privacy" });
+});
+router.get("/add-coupons", (req, res) => {
+	res.render("addcoupons", { title: "Add Coupons", css: "addcoupons" });
+});
+router.post("/addcoupon", (req, res) => {
+	let authenticate = req.cookies.jwt;
+	let userName = req.cookies.userData.name;
+	console.log(req.body);
+	const { discount_percent, promo_code, expiry_date, about_coupons } =
+		req.body;
+
+	let sql =
+		'insert into coupons values (NULL,"' +
+		userName +
+		'", "' +
+		discount_percent +
+		'", "' +
+		promo_code +
+		'", "' +
+		about_coupons +
+		'", "' +
+		expiry_date +
+		'")';
+	console.log(sql);
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		else {
+			res.redirect("/coupons");
+		}
+	});
+});
+router.get("/coupons", (req, res) => {
+	let sql =
+		"select * from coupons where username='" +
+		req.cookies.userData.name +
+		"'";
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		res.status(200).render("coupons", {
+			title: "Coupons",
+			css: "coupons",
+			result,
+		});
+	});
+});
+router.get("/all-coupons", (req, res) => {
+	let sql = "select * from coupons";
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		res.render("coupons", { title: "Coupons", css: "coupons", result });
+	});
 });
 
 module.exports = router;

@@ -54,6 +54,7 @@ app.use(function (req, res, next) {
 		res.locals.userDetails = req.cookies.userDetails;
 	}
 	res.locals.isAuthenticated = req.cookies.jwt;
+	res.locals.userName = req.cookies.userData.name;
 	next();
 });
 app.use("/", require("./route/index"));
