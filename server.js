@@ -52,9 +52,9 @@ app.use(function (req, res, next) {
 	}
 	if (req.cookies.userDetails) {
 		res.locals.userDetails = req.cookies.userDetails;
+		res.locals.userName = req.cookies.userData.name;
 	}
 	res.locals.isAuthenticated = req.cookies.jwt;
-	res.locals.userName = req.cookies.userData.name;
 	next();
 });
 app.use("/", require("./route/index"));
