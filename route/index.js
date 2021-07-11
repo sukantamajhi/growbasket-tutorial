@@ -207,25 +207,30 @@ router.get("/404.html", (req, res) => {
 
 router.get("/search", (req, res) => {
 	let prod = req.query.search;
-	let sql = 'select * from products where product_name like "%' + prod + '%"';
-	pool.query(sql, function (err, result, fields) {
-		if (err) throw err;
-		let list = result.length;
-		if (result.length > 0) {
-			res.render("searchproductlist", {
-				result: result,
-				msg: "Showing " + list + " items",
-				css: "product",
-				check: "Check All Products",
-			});
-		} else {
-			res.render("searchproductlist", {
-				msg: "Search item not found. ",
-				css: "product",
-				check: "Check All Products",
-			});
-		}
-	});
+	if (prod.length > 0) {
+		let sql =
+			'select * from products where product_name like "%' + prod + '%"';
+		pool.query(sql, function (err, result, fields) {
+			if (err) throw err;
+			let list = result.length;
+			if (result.length > 0) {
+				res.render("searchproductlist", {
+					result: result,
+					msg: "Showing " + list + " items",
+					css: "product",
+					check: "Check All Products",
+				});
+			} else {
+				res.render("searchproductlist", {
+					msg: "Search item not found. ",
+					css: "product",
+					check: "Check All Products",
+				});
+			}
+		});
+	} else {
+		res.redirect("/product")
+	}
 });
 
 router.get("/wishlist", (req, res) => {
