@@ -1,0 +1,23 @@
+{{>header}}
+
+	<a href='/sell'><div class='sell__product button'>
+    Add Coupons
+</div></a>
+	{{#each result}}
+<div class="coupon">
+	<div class="container">
+		{{!-- <h3>Company Logo</h3> --}}
+		<img src="/images/logo.svg" alt="" height="60px">
+	</div>
+	{{!-- <img src="/w3images/hamburger.jpg" alt="Avatar" style="width:100%;" /> --}}
+	<div class="container" style="background-color:white">
+		<h2><b>{{discount_percent}}% OFF YOUR PURCHASE</b></h2>
+		<p>{{about_coupons}}</p>
+	</div>
+	<div class="promo_code_container">
+		<p class="promo_code">Use Promo Code: <span class="promo">{{promo_code}}</span></p>
+		<p class="expire">Expires: {{expiry_date}}</p>
+	</div>
+</div>
+{{/each}}
+{{>footer}}

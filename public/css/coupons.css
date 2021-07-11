@@ -1,0 +1,59 @@
+.coupon {
+  border: 5px dotted #bbb;
+  width: 30%;
+  border-radius: 15px;
+  /* margin: 0 auto; */
+  max-width: 600px;
+	margin: 30px;
+}
+
+.container {
+  padding: 2px 16px;
+  background-color: #111b1e;
+	border-radius: 15px 15px 0 0;
+}
+
+.promo {
+  background: #ccc;
+  padding: 3px;
+	text-transform: uppercase;
+}
+
+.expire {
+  color: red;
+}
+
+.promo_code_container{
+	padding: 2px 16px;
+  background-color: #f1f1f1;
+	border-radius: 0 0 15px 15px;
+}
+
+.buttons {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	text-decoration: none;
+}
+.button {
+	margin-top: 30px;
+	margin-left: 30px;
+	padding: 10px 0;
+	width: 12em;
+	/* height: 25%; */
+	background-color: #ff0707;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+	outline: none;
+	border: 1px solid #ff0707;
+	border-radius: 5px;
+}
+a {
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+}
+.button:hover {
+	border: 1px solid black;
+}
