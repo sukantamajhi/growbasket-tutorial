@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:ital,wght@1,300&display=swap");
+h2 {
+	font-family: "Montserrat", sans-serif;
+	text-align: center;
+	height: 40px;
+}
+.entry {
+	padding: 0 30px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	justify-content: center;
+	align-items: stretch;
+}
+.entry div {
+	margin: 5px 0;
+}
+.entry div label {
+	font-family: "Inter", sans-serif;
+	font-size: 18px;
+}
+.entry input {
+	padding: 8px 15px;
+	width: 100%;
+	height: 50px;
+	border-radius: 5px;
+	border: 1px solid;
+	margin-top: 5px;
+	font-family: "Inter", sans-serif;
+	font-size: 15px;
+}
+.entry textarea {
+	padding: 8px 15px;
+	border-radius: 5px;
+	border: 1px solid;
+	margin-top: 5px;
+	font-family: "Inter", sans-serif;
+	font-size: 15px;
+}
+.entry button {
+	padding: 10px 15px;
+	margin: 45px 0;
+	font-family: "Inter", sans-serif;
+	background-color: #ff0707;
+	font-size: 18px;
+	color: #fff;
+	border: 1px solid;
+	outline: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+/* Chrome/Opera/Safari */
+.entry input::-webkit-input-placeholder {
+	font-family: "Inter", sans-serif;
+	font-size: 15px;
+}
+/* Firefox 19+  */
+.entry input::-moz-placeholder {
+	font-family: "Inter", sans-serif;
+	font-size: 15px;
+}
+/* IE 10+ */
+.entry input:-ms-input-placeholder {
+	font-family: "Inter", sans-serif;
+	font-size: 15px;
+}
+/* Firefox 18- */
+.entry input:-moz-placeholder {
+	font-family: "Inter", sans-serif;
+	font-size: 15px;
+}
