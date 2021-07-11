@@ -6,10 +6,10 @@ const bodyParser = require("body-parser");
 dotenv.config("../.env");
 
 const connection = mySql.createConnection({
-	host: process.env.Database_Host,
-	user: process.env.Database_User,
-	password: process.env.Database_Password,
-	database: process.env.Database_Name,
+	host: process.env.MYSQL_ADDON_HOST,
+	user: process.env.MYSQL_ADDON_USER,
+	password: process.env.MYSQL_ADDON_PASSWORD,
+	database: process.env.MYSQL_ADDON_DB,
 });
 
 connection.connect((err) => {
