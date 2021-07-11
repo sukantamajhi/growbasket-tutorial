@@ -1,7 +1,9 @@
 {{> header}}
-<div class='msg'>
-    {{msg}}
+{{#if msg}}
+<div class="msg">
+  {{msg}}
 </div>
+  {{/if}}
 <div class="row">
     {{#each result}}
     <a href='{{redirect_link}}' target="_blank">

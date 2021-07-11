@@ -1,0 +1,40 @@
+{{>header}}
+<h2>Add Your Coupons</h2>
+<div class='error'>
+    {{message}}
+</div>
+
+{{#each result}}
+<form name="product_sell" action='/editcoupon' method='post' onsubmit="return check()" class="entry" >
+
+    <div class='username'>
+        <label for='username'>Username</label> <br>
+        <input type='text' name="username" id="username" class="username" value="{{username}}" disabled/>
+    </div>
+
+    <div class='discount_percent'>
+        <label for='discount_percent'>Discount Percent</label> <br>
+        <input type='text' class="discount_percent" name="discount_percent" id="discount_percent" placeholder="Enter discount percent" required value="{{discount_percent}}" />
+    </div>
+
+    <div class='promo_code'>
+        <label for='promo_code'>Promo Code</label> <br>
+        <input type='text' class="promo_code" name="promo_code" placeholder="Enter promo code" id="promo_code" required value="{{promo_code}}" />
+    </div>
+
+		<div class="expiry_date">
+			<label for="expiry_date">Expiry Date</label>
+			<input type="date" name="expiry_date" id="expiry_date" value="{{expiry_date}}">
+		</div>
+
+    <div class='about_coupons'>
+        <label for='about_coupons'>About Coupon</label> <br>
+        <textarea name="about_coupons" id="about_coupons" cols="30" rows="10" style="width: 100%; height: 156px;" placeholder="Enter something about coupon. Where can user use this coupon.">{{about_coupons}}</textarea>
+        <div id='price__error'></div>
+    </div>
+
+    <button type='submit'>Submit</button>
+
+</form>
+{{/each}}
+{{>footer}}

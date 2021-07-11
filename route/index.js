@@ -167,6 +167,14 @@ router.get("/addlist", (req, res) => {
 	});
 });
 
+router.get("/delete/:id", (req, res) => {
+	let sql = "delete from products where id='" + req.params.id + "'";
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		res.redirect("/addlist");
+	});
+});
+
 router.get("/sell", (req, res) => {
 	let cookie = req.cookies.jwt;
 	let cookie1 = req.cookies.userData;
@@ -222,14 +230,14 @@ router.get("/search", (req, res) => {
 				});
 			} else {
 				res.render("searchproductlist", {
-					msg: "Search item not found. ",
+					msg: "Search Item Not Available. ",
 					css: "product",
 					check: "Check All Products",
 				});
 			}
 		});
 	} else {
-		res.redirect("/product")
+		res.redirect("/product");
 	}
 });
 
@@ -298,19 +306,76 @@ router.get("/coupons", (req, res) => {
 		"'";
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
-		res.status(200).render("coupons", {
-			title: "Coupons",
-			css: "coupons",
-			result,
-		});
+		if (result.length > 0) {
+			res.status(200).render("coupons", {
+				title: "Coupons",
+				css: "coupons",
+				result,
+			});
+		} else {
+			res.render("coupons", {
+				title: "Coupons",
+				css: "coupons",
+				result,
+				msg: "No Coupons Available",
+			});
+		}
 	});
 });
 router.get("/all-coupons", (req, res) => {
 	let sql = "select * from coupons";
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
-		res.render("coupons", { title: "Coupons", css: "coupons", result });
+		if (result.length > 0) {
+			res.render("coupons", { title: "Coupons", css: "coupons", result });
+		} else {
+			res.render("coupons", {
+				title: "Coupons",
+				css: "coupons",
+				result,
+				msg: "No Coupons Available",
+			});
+		}
 	});
+});
+
+router.get("/delete-coupons/:id", (req, res) => {
+	let sql = "delete from coupons where id='" + req.params.id + "'";
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		res.redirect("/coupons");
+	});
+});
+
+router.get("/edit-coupons/:id", (req, res) => {
+	let uname = req.cookies.userData.name;
+	let sql = "select * from coupons where id = '" + req.params.id + "'";
+	pool.query(sql, (err, result) => {
+		res.render("editcoupon", {
+			title: "Edit Coupon",
+			css: "addcoupons",
+			result,
+		});
+	});
+});
+
+router.post("/editcoupon", (req, res) => {
+	const { discount_percent, promo_code, expiry_date, about_coupons } =
+		req.body;
+	let sql =
+		"update coupons set discount_percent = '" +
+		discount_percent +
+		"',promo_code='" +
+		promo_code +
+		"',expiry_date= '" +
+		expiry_date +
+		"', about_coupons='" +
+		about_coupons +
+		"'";
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		res.redirect('/coupons')
+	})
 });
 
 module.exports = router;

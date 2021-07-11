@@ -7,12 +7,11 @@
 	padding: 10px 80px;
 	margin: 20px 20px;
 	border: 1px solid transparent;
+	border-color: #a2ff6c;
 	border-radius: 7px;
-	background: #667db6; /* fallback for old browsers */
-
-	background: radial-gradient(#7de1ff, #a2ff6c);
-
-	/* margin-top: 10px; */
+	/* background: #667db6; */
+	/* background: radial-gradient(#7de1ff, #a2ff6c); */
+	/* margin-top: 10px;	/* margin-top: 10px; */
 }
 
 .col-4 a {
@@ -35,9 +34,10 @@ img {
 	font-size: 16px;
 }
 .btn {
-	height: 100%;
-	width: auto;
-	padding: 10px 37px;
+	width: 13em;
+	height: 40px;
+	/* padding: 10px 37px; */
+	margin: 0 5px;
 	background-color: #ff0707;
 	/* color: #fff; */
 	outline: none;
@@ -54,7 +54,7 @@ img {
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
-	width: 30%;
+	width: 40%;
 }
 .alert {
 	display: flex;
