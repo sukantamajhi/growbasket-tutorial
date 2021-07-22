@@ -41,6 +41,27 @@ router.get("/product", (req, res) => {
 		}
 	});
 });
+router.get("/api/product", (req, res) => {
+	pool.query("select * from products", (err, result) => {
+		if (err) throw err;
+		// result = []
+		if (result.length > 0) {
+			res.status(200).json({
+				Error: "false",
+				title: "products",
+				result: result,
+				msg: "Data Found",
+			});
+		} else {
+			res.status(200).json({
+				Error: "true",
+				title: "products",
+				result: [],
+				msg: "No Data Found",
+			});
+		}
+	});
+});
 router.get("/about", (req, res) => {
 	res.render("about", { title: "About Us", css: "about" });
 });
@@ -102,6 +123,49 @@ router.post("/contactus", (req, res) => {
 		// res.redirect('/contact');
 	});
 });
+
+router.post("/api/contactus", (req, res) => {
+	const { email, message } = req.body;
+	let sql =
+		"insert into contact values (NULL,'" +
+		req.cookies.userData.name +
+		"','" +
+		email +
+		"','" +
+		message +
+		"')";
+	pool.query(sql, (err, result) => {
+		if (err) throw err;
+		let mailOptions = {
+			from: "admin@growbasket.in",
+			to: email,
+			subject: "Thank you for contacting us",
+			html: `Hello ${req.cookies.userData.name}. Welcome to GrowBasket. Thank you for contacting us. We are trying to figure out what We can do`,
+		};
+		let toMe = {
+			from: "admin@growbasket.in",
+			to: "majhisukanta48@gmail.com",
+			subject: "Contact Message",
+			html:
+				"<h2>Name: " +
+				req.cookies.userData.name +
+				"</h2> <h2>Email: " +
+				email +
+				"</h2> <h2>Message: " +
+				message +
+				"</h2>",
+		};
+		mail.sendMail(mailOptions, (err, info) => {
+			if (err) throw err;
+		});
+		mail.sendMail(toMe, (err, info) => {
+			if (err) throw err;
+		});
+		res.status(200).json({ msg: "Email send successfully" });
+		// res.redirect('/contact');
+	});
+});
+
 router.get("/terms-and-conditions", (req, res) => {
 	res.render("toc", { title: "Terms and Conditions" });
 });
@@ -211,6 +275,31 @@ router.get("/404.html", (req, res) => {
 		title: "Ooopsss...Page Not Found",
 		css: "404",
 	});
+});
+
+router.get("/search", (req, res) => {
+	let prod = req.query.search;
+	if (prod.length > 0) {
+		let sql =
+			'select * from products where product_name like "%' + prod + '%"';
+		pool.query(sql, function (err, result, fields) {
+			if (err) throw err;
+			let list = result.length;
+			if (result.length > 0) {
+				res.status(200).json({
+					error: "false",
+					result: result,
+					msg: "Data Found",
+				});
+			} else {
+				res.status(204).json({
+					error: "true",
+					result: [],
+					msg: "No data available",
+				});
+			}
+		});
+	}
 });
 
 router.get("/search", (req, res) => {
@@ -374,8 +463,8 @@ router.post("/editcoupon", (req, res) => {
 		"'";
 	pool.query(sql, (err, result) => {
 		if (err) throw err;
-		res.redirect('/coupons')
-	})
+		res.redirect("/coupons");
+	});
 });
 
 module.exports = router;

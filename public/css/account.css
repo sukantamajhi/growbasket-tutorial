@@ -181,3 +181,45 @@ a:hover {
 .closebtn:hover {
 	color: black;
 }
+
+.form-label fieldset:first-child input::after {
+	content: "\f05a";
+	position: absolute;
+}
+fieldset:nth-child(1) {
+	display: flex;
+}
+fieldset:nth-child(1) .fa {
+	position: absolute;
+	z-index: 100;
+	color: #000;
+	left: 92%;
+	top: 30%;
+	border-bottom: 1px dotted black;
+}
+.tooltiptext {
+	display: none;
+	width: 120px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	position: absolute;
+	z-index: 100;
+	top: -5px;
+	left: 110%;
+}
+.fa .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+.fa:hover .tooltiptext {
+	display: block;
+}

@@ -9,6 +9,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const axios = require("axios").default;
 const flash = require("connect-flash");
+const cors = require("cors");
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -22,6 +23,7 @@ app.set("view engine", "hbs");
 hbs.registerPartials(__dirname + "/views/Partials", function (err) {});
 
 app.use(cookieParser());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(
 	bodyParser.urlencoded({
@@ -52,7 +54,6 @@ app.use(function (req, res, next) {
 	}
 	if (req.cookies.userDetails) {
 		res.locals.userDetails = req.cookies.userDetails;
-		res.locals.userName = req.cookies.userData.name;
 	}
 	res.locals.isAuthenticated = req.cookies.jwt;
 	next();
